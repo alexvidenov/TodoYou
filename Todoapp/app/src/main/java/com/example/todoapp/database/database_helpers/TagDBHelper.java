@@ -1,11 +1,11 @@
-package com.example.todoapp.Database.DatabaseHelpers;
+package com.example.todoapp.database.database_helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.todoapp.Database.Database;
-import com.example.todoapp.Models.Tag;
+import com.example.todoapp.database.Database;
+import com.example.todoapp.models.Tag;
 
 public class TagDBHelper extends ModelHelper {
 

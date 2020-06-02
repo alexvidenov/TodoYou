@@ -1,4 +1,4 @@
-package com.example.todoapp.Database;
+package com.example.todoapp.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

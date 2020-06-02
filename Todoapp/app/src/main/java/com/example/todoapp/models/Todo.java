@@ -1,4 +1,4 @@
-package com.example.todoapp.Models;
+package com.example.todoapp.models;
 
 public class Todo {
     private int id;
