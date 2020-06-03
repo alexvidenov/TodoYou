@@ -6,18 +6,21 @@
         android:id="@+id/action_create_todo"
         android:checked="true"
         android:title="@string/add_todo"
+        android:icon="@drawable/ic_plus_one_white_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_view_todo"
+        android:checked="false"
+        android:title="@string/view_todo"
+        android:icon="@drawable/ic_eye_white_24dp"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_edit_todo"
         android:checked="false"
         android:title="@string/edit_todo"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/action_view_todo"
-        android:checked="false"
-        android:title="@string/view_todo"
+        android:icon="@drawable/ic_edit_white_24dp"
         app:showAsAction="ifRoom"/>
 
 </menu>

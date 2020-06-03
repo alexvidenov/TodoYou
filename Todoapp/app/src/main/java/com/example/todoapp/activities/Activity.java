@@ -1,5 +1,6 @@
 package com.example.todoapp.activities;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,13 +15,7 @@ public abstract class Activity extends AppCompatActivity {
     protected BottomNavigationView bottomNavigationView;
     protected FragmentPageAdapter fragmentPageAdapter; // init in child classes...
     protected ViewPager viewPager;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        viewPager = findViewById(R.id.view_pager);
-    }
+    protected Resources resources;
 
     public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;

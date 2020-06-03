@@ -7,6 +7,17 @@
         <item name="colorPrimaryDark">@color/colorMainDark</item>
         <item name="colorAccent">@color/colorMainAccent</item>
         <item name="colorButtonNormal">@color/colorBackground</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+    </style>
+
+    <style name="BottomNavigationItemActiveTextAppearance">
+        <item name="fontFamily">@font/roboto_black</item>
+        <item name="android:textColor">@color/colorMainAccent</item>
+    </style>
+
+    <style name="BottomNavigationItemInactiveTextAppearance">
+        <item name="fontFamily">@font/roboto_black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

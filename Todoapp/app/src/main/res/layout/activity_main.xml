@@ -10,8 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorBackground"
-        app:menu="@menu/menu_bottom_navigation"/>
+        app:itemBackground="@color/colorMainDark"
+        app:itemIconTint="@color/white"
+        app:itemTextAppearanceActive="@style/BottomNavigationItemActiveTextAppearance"
+        app:itemTextAppearanceInactive="@style/BottomNavigationItemInactiveTextAppearance"
+        app:menu="@menu/menu_bottom_navigation" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
