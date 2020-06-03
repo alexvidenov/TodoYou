@@ -2,4 +2,8 @@
 
     <string name="app_name">TodoYou</string>
 
+    <string name="add_todo">Add TODO</string>
+    <string name="edit_todo">Edit TODO</string>
+    <string name="view_todo">View TODO</string>
+
 </resources>
