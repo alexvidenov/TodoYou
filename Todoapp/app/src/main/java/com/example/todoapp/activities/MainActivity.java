@@ -1,15 +1,12 @@
 package com.example.todoapp.activities;
 
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.todoapp.R;
-import com.example.todoapp.handlers.UIHandler;
 import com.example.todoapp.ui.adapter.FragmentPageAdapter;
 import com.example.todoapp.ui.adapter.SetUpActivity;
 import com.example.todoapp.ui.ui_core.CreateToDoFragment;

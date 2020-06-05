@@ -17,7 +17,7 @@ public class Database extends SQLiteOpenHelper {
     // todos
     public static final String TABLE_TODO_NAME = "todos";
     public static final String COL_TODO_ID = "todo_id";
-    public static final String COL_TODO_TITLE = "todO_title";
+    public static final String COL_TODO_TITLE = "todo_title";
     public static final String COL_TODO_CONTENT = "todo_content";
     public static final String COL_TODO_DATE = "todo_date";
     public static final String COL_TODO_TAG = "todo_tag";
@@ -36,8 +36,9 @@ public class Database extends SQLiteOpenHelper {
                     "%s TEXT NOT NULL," +
                     "%s TEXT NOT NULL," +
                     "%s TEXT NOT NULL," +
+                    "%s TEXT NOT NULL," +
                     "FOREIGN KEY("+COL_TODO_TAG+") REFERENCES "+TABLE_TAG_NAME+"("+COL_TAG_ID+")"+")",
-            TABLE_TODO_NAME, COL_TODO_ID, COL_TODO_TITLE, COL_TODO_CONTENT, COL_TODO_DATE);
+            TABLE_TODO_NAME, COL_TODO_ID, COL_TODO_TITLE, COL_TODO_CONTENT, COL_TODO_DATE, COL_TODO_TAG);
 
     // drop table queries
     private static final String DROP_TAGS_TABLE = String.format("DROP TABLE IF EXISTS %s", TABLE_TAG_NAME);

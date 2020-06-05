@@ -6,4 +6,12 @@
     <string name="edit_todo">Edit TODO</string>
     <string name="view_todo">View TODO</string>
 
+    <string name="enter_title">Enter title</string>
+    <string name="enter_content">Enter content</string>
+    <string name="enter_date">Enter date</string>
+    <string name="enter_tag">Enter tag</string>
+    <string name="add_record">Add record</string>
+
+    <string name="empty_list">You have no todos</string>
+
 </resources>
