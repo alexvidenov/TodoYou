@@ -11,12 +11,12 @@ public class Database extends SQLiteOpenHelper {
 
     // todo tags (tags are like todo categories)
     public static final String TABLE_TAG_NAME = "tags";
-    public static final String COL_TAG_ID = "tag_id";
+    public static final String COL_TAG_ID = "_id";
     public static final String COL_TAG_TITLE = "tag_title";
 
     // todos
     public static final String TABLE_TODO_NAME = "todos";
-    public static final String COL_TODO_ID = "todo_id";
+    public static final String COL_TODO_ID = "_id";
     public static final String COL_TODO_TITLE = "todo_title";
     public static final String COL_TODO_CONTENT = "todo_content";
     public static final String COL_TODO_DATE = "todo_date";
