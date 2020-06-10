@@ -76,6 +76,4 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // here, open the EditToDoDialogFragment to update/delete the desired todo
     }
-
-
 }

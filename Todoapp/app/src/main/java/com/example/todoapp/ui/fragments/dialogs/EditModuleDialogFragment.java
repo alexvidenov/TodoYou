@@ -64,6 +64,7 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
             adapter.changeCursor(toDoDBHelper.fetchAllTodos()); // swap the old cursor w/ new one w/ new information
 
             adapter.notifyDataSetChanged(); // reflect the update in the ListView
+
             getDialog().dismiss(); // dismiss the dialog
         });
         cancel.setOnClickListener((view) -> getDialog().dismiss()); // dismiss the dialog from the view;
