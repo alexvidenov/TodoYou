@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.todoapp.database.Database;
 import com.example.todoapp.models.Tag;
+import com.example.todoapp.models.Todo;
 
 public class TagDBHelper extends ModelHelper {
 
@@ -13,13 +14,19 @@ public class TagDBHelper extends ModelHelper {
         super(context);
     }
 
-    public void addTag(Tag tag) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Database.COL_TAG_TITLE, tag.getTitle());
-        sqLiteDatabase.insert(Database.TABLE_TAG_NAME, null, contentValues);
+    private ContentValues populateTagValues(Tag tag) {
+        ContentValues tagContentValues = new ContentValues();
+        tagContentValues.put(Database.COL_TAG_TITLE, tag.getTitle());
+
+        return tagContentValues;
     }
 
-    public void removeTag(int tagId){
+    public void addTag(Tag tag) {
+        ContentValues tagContentValues = populateTagValues(tag);
+        sqLiteDatabase.insert(Database.TABLE_TAG_NAME, null, tagContentValues);
+    }
+
+    public void deleteTag(int tagId){
         String tagIdString = String.valueOf(tagId);
 
         sqLiteDatabase.beginTransaction();
@@ -39,5 +46,15 @@ public class TagDBHelper extends ModelHelper {
     }
 
     // implement other methods like update, query all todo tags, etc.
+    public void updateTag(Tag tag) {
+        ContentValues tagContentValues = populateTagValues(tag);
+
+        sqLiteDatabase.update(
+                Database.TABLE_TAG_NAME,
+                tagContentValues,
+                Database.COL_TAG_ID + "=?",
+                new String[]{String.valueOf(tag.getId())}
+        );
+    }
 
 }

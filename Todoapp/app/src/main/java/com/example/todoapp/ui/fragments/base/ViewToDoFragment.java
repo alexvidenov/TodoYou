@@ -1,18 +1,14 @@
-package com.example.todoapp.ui.ui_core;
+package com.example.todoapp.ui.fragments.base;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,9 +31,15 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
             Database.COL_TODO_ID,
             Database.COL_TODO_TITLE,
             Database.COL_TODO_CONTENT,
+            Database.COL_TODO_DATE
     };
 
-    final int[] to = new int[] { R.id.todo_id, R.id.todo_title, R.id.todo_content };
+    final int[] to = new int[] {
+            R.id.todo_id,
+            R.id.todo_title,
+            R.id.todo_content,
+            R.id.todo_date
+    };
 
 
     @Nullable
@@ -59,6 +61,7 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
         adapter = new ExtendedSimpleCursorAdapter(
                 cursor,
                 toDoDBHelper,
+                this,
                 getActivity(), R.layout.single_todo, cursor, from, to, 0
         );
         adapter.notifyDataSetChanged();
@@ -71,7 +74,7 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // here, open the EditToDoFragment to update/delete the desired todo
+        // here, open the EditToDoDialogFragment to update/delete the desired todo
     }
 
 

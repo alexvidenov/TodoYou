@@ -2,10 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_create_todo"
-    android:orientation="vertical"
-    android:padding="20dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/create_todo_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="0dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="4"
+        android:padding="30dp"
+        android:text="@string/create_todo_header"
+        android:textSize="30sp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/create_todo_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="0dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="4"
+        android:padding="30dp"
+        android:text="@string/create_todo_description"
+        android:textSize="18sp"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/title"
@@ -15,13 +45,12 @@
         android:ems="10"
         android:hint="@string/enter_title">
 
-        <requestFocus />
     </EditText>
 
     <EditText
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="67dp"
         android:layout_margin="10dp"
         android:ems="10"
         android:hint="@string/enter_content"
@@ -42,9 +71,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:inputType="number"
-        android:hint="@string/enter_tag">
-    </EditText>
+        android:hint="@string/enter_tag"
+        android:inputType="number"></EditText>
 
     <Button
         android:id="@+id/add_record"
@@ -52,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="50dp"
+        android:background="@color/colorMainAccent"
         android:padding="15dp"
         android:text="@string/add_record" />
 

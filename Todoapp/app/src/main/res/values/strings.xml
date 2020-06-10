@@ -19,7 +19,12 @@
     <string name="empty_tag_list">You have no todos</string>
     <string name="empty_todo_list">You have no todos</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_todo_header">Create your ToDo!</string>
+    <string name="create_todo_description">Input the values in the forms and press the button to create your ToDo!</string>
+    <string name="edit_todo_header">Edit your ToDo!</string>
+    <string name="edit_todo_description">Change the values here and confirm the changes to update your ToDo.</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 
 </resources>

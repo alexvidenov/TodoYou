@@ -9,10 +9,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.todoapp.R;
 import com.example.todoapp.ui.adapter.FragmentPageAdapter;
 import com.example.todoapp.ui.adapter.SetUpActivity;
-import com.example.todoapp.ui.ui_core.CreateTagFragment;
-import com.example.todoapp.ui.ui_core.CreateToDoFragment;
-import com.example.todoapp.ui.ui_core.EditToDoFragment;
-import com.example.todoapp.ui.ui_core.ViewToDoFragment;
+import com.example.todoapp.ui.fragments.base.CreateTagFragment;
+import com.example.todoapp.ui.fragments.base.CreateToDoFragment;
+import com.example.todoapp.ui.fragments.base.ViewToDoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends Activity implements BottomNavigationView.OnNavigationItemSelectedListener,

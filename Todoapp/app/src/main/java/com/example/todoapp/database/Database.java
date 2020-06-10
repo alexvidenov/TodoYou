@@ -23,7 +23,6 @@ public class Database extends SQLiteOpenHelper {
 
     // todo-tag connections to simulate many-many connection
     public static final String TABLE_TODOTAGS_NAME = "todotags";
-    public static final String COL_TODOTAGS_ID = "_id";
     public static final String COL_TODOTAGS_TODO_ID = "todotags_todo_id";
     public static final String COL_TODOTAGS_TAG_ID = "todotags_tag_id";
 
@@ -59,16 +58,14 @@ public class Database extends SQLiteOpenHelper {
 
     private static final String CREATE_TODOTAGS_TABLE = String.format(
             "CREATE TABLE IF NOT EXISTS %s (" +
-                    "%s INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-                    "%s INTEGER NOT NULL," +
+                    "%s INTEGER NOT NULL PRIMARY KEY," +
                     "%s INTEGER NOT NULL," +
                     "FOREIGN KEY(%s) REFERENCES %s(%s)," +
                     "FOREIGN KEY(%s) REFERENCES %s(%s)" +
             ")",
             TABLE_TODOTAGS_NAME,
 
-            COL_TODOTAGS_ID,
-            COL_TODOTAGS_TODO_ID,
+            COL_TODOTAGS_TODO_ID, // 2do ID is the Primary key
             COL_TODOTAGS_TAG_ID,
 
             COL_TODOTAGS_TODO_ID, TABLE_TODO_NAME, COL_TODO_ID,

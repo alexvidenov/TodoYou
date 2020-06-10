@@ -1,27 +1,30 @@
 package com.example.todoapp.ui.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.opengl.Visibility;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.todoapp.R;
 import com.example.todoapp.database.database_helpers.TagDBHelper;
 import com.example.todoapp.database.database_helpers.ToDoDBHelper;
+import com.example.todoapp.handlers.UIHandler;
+import com.example.todoapp.models.Todo;
+import com.example.todoapp.ui.fragments.dialogs.EditToDoDialogFragment;
 
 public class ExtendedSimpleCursorAdapter extends SimpleCursorAdapter {
 
     private ToDoDBHelper toDoDBHelper; // helper for toDo DB transactions
     private TagDBHelper tagDBHelper; // helper for tag DB transactions
-    private Cursor cursor; // current cursor (to be required if needed)
+    private Cursor cursor; // current cursor (to be requeired if needed)
+    private Fragment targetFragment; // fragment from wherein the adapter is used (used in dialog invocation)
 
     public ExtendedSimpleCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
         super(context, layout, c, from, to);
@@ -31,33 +34,42 @@ public class ExtendedSimpleCursorAdapter extends SimpleCursorAdapter {
         super(context, layout, c, from, to, flags);
     }
 
-    public ExtendedSimpleCursorAdapter(
-            @NonNull ToDoDBHelper toDoDBHelper,
-            @NonNull TagDBHelper tagDBHelper,
-            Context context, int layout, Cursor c, String[] from, int[] to) {
-        this(context, layout, c, from, to);
-
-        this.toDoDBHelper = toDoDBHelper;
-        this.tagDBHelper = tagDBHelper;
-    }
-
-    public ExtendedSimpleCursorAdapter(
-            @NonNull ToDoDBHelper toDoDBHelper,
-            Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
-        this(context, layout, c, from, to, flags);
-
-        this.toDoDBHelper = toDoDBHelper;
-    }
-
-    public ExtendedSimpleCursorAdapter(
+    public ExtendedSimpleCursorAdapter( // For todos
             @NonNull Cursor cursor,
             @NonNull ToDoDBHelper toDoDBHelper,
+            @NonNull Fragment targetFragment,
             Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         this(context, layout, c, from, to, flags);
 
+        this.cursor = cursor;
+        this.toDoDBHelper = toDoDBHelper;
+        this.targetFragment = targetFragment;
+    }
+
+    public ExtendedSimpleCursorAdapter( // For tags
+            @NonNull Cursor cursor,
+            @NonNull TagDBHelper tagDBHelper,
+            @NonNull Fragment targetFragment,
+            Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+        this(context, layout, c, from, to, flags);
+
+        this.cursor = cursor;
+        this.tagDBHelper = tagDBHelper;
+        this.targetFragment = targetFragment;
+    }
+
+    public ExtendedSimpleCursorAdapter( // For both
+            @NonNull Cursor cursor,
+            @NonNull ToDoDBHelper toDoDBHelper,
+            @NonNull TagDBHelper tagDBHelper,
+            @NonNull Fragment targetFragment,
+            Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+        this(context, layout, c, from, to, flags);
+
+        this.cursor = cursor;
         this.toDoDBHelper = toDoDBHelper;
         this.tagDBHelper = tagDBHelper;
-        this.cursor = cursor;
+        this.targetFragment = targetFragment;
     }
 
     @Override
@@ -72,6 +84,7 @@ public class ExtendedSimpleCursorAdapter extends SimpleCursorAdapter {
                 // delete the item visually for the current state
                 // (it won't render on the next because it's gone from DB)
 
+            // small code duplication here and in the other method but no visible overhead
             TextView toDoIdTextView = receivedView.findViewById(R.id.todo_id);
             int toDoId = Integer.parseInt(toDoIdTextView.getText().toString()); // get todo id
 
@@ -84,6 +97,14 @@ public class ExtendedSimpleCursorAdapter extends SimpleCursorAdapter {
 
         editButton.setOnClickListener((view) -> {
 
+            EditToDoDialogFragment editToDoDialogFragment =
+                new EditToDoDialogFragment(
+                        UIHandler.getToDoFromView(receivedView),
+                        this
+                    );
+            editToDoDialogFragment.setTargetFragment(targetFragment, 1); // set original fragment
+            editToDoDialogFragment.show(targetFragment.getFragmentManager(), "EditToDoDialogFragment"); // show dialog
+            // TODO: Replace with real tag IDs (tip: map to integer and get the IDs from the Tag object list)
         });
 
         return receivedView;

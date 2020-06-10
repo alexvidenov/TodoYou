@@ -5,7 +5,7 @@
     android:id="@+id/fragment_create_tag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui_core.CreateTagFragment">
+    tools:context=".ui.fragments.base.CreateTagFragment">
 
     <TextView
         android:id="@+id/textView"

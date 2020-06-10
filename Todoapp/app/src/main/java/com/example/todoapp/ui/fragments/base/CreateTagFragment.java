@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.ui_core;
+package com.example.todoapp.ui.fragments.base;
 
 
 import android.os.Bundle;

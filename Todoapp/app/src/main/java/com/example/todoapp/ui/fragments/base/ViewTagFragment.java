@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.ui_core;
+package com.example.todoapp.ui.fragments.base;
 
 
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import com.example.todoapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditTagFragment extends Fragment {
+public class ViewTagFragment extends Fragment {
 
 
-    public EditTagFragment() {
+    public ViewTagFragment() {
         // Required empty public constructor
     }
 
@@ -26,9 +26,8 @@ public class EditTagFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_edit_tag, container, false);
+        View view =  inflater.inflate(R.layout.fragment_view_tag, container, false);
 
-        // TODO: CONVERT TO DIALOGFRAGMENT
 
         return view;
     }

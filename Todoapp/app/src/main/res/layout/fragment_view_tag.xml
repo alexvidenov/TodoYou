@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui_core.ViewTagFragment">
+    tools:context=".ui.fragments.base.ViewTagFragment">
 
     <ListView
         android:id="@+id/todos_listView"

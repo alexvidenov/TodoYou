@@ -1,7 +1,5 @@
-package com.example.todoapp.ui.ui_core;
+package com.example.todoapp.ui.fragments.base;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.todoapp.R;
-import com.example.todoapp.activities.MainActivity;
 import com.example.todoapp.database.database_helpers.ToDoDBHelper;
 import com.example.todoapp.models.Todo;
 
@@ -49,7 +46,7 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.add_record){
+        if(v.getId() == R.id.add_record) {
             final String todoTitle = title.getText().toString();
             final String todoContent = content.getText().toString();
             final String todoDate = date.getText().toString();
@@ -72,7 +69,7 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
                     todoTitle,
                     todoContent,
                     todoDate,
-                    new ArrayList<Integer>(){{ add(todoTagsID); }}
+                    new ArrayList<>()
                 ); // TODO: Replace with adding entire list
             } catch(IllegalArgumentException e) {
                 e.printStackTrace();

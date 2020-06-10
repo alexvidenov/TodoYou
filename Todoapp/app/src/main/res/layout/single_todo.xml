@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/todo_title"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
@@ -51,6 +51,20 @@
             android:fontFamily="@font/roboto_medium"
             android:maxLines="4"
             android:padding="50dp"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/todo_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="0dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:maxLines="4"
+            android:padding="30dp"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:visibility="visible" />

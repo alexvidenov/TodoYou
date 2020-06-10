@@ -1,48 +1,40 @@
 package com.example.todoapp.models;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
-public class Todo {
-    private int id;
-    private String title, content, date;
+public class Todo extends Module {
+    private String content, date;
     private List<Integer> tagIDs;
 
-    public Todo(){ }
+    public Todo() {}
 
-    public Todo(String title, String content, String date, List<Integer> tagIDs) throws IllegalArgumentException {
-        if(title == null || content == null || date == null || tagIDs == null) {
-            throw new IllegalArgumentException();
-        }
-
-        this.title = title;
+    public Todo(
+            @NonNull String title,
+            @NonNull String content,
+            @NonNull String date,
+            @NonNull List<Integer> tagIDs
+    ) {
+        super(title);
         this.content = content;
         this.date = date;
         this.tagIDs = tagIDs;
     }
 
-    public Todo(int id, String title, String content, String date, List<Integer> tagIDs) {
-        this.id = id;
-        this.title = title;
+    public Todo(
+            int id,
+            @NonNull String title,
+            @NonNull String content,
+            @NonNull String date,
+            @NonNull List<Integer> tagIDs
+    ) {
+        super(id, title);
         this.content = content;
         this.date = date;
         this.tagIDs = tagIDs;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getContent() {
         return content;
