@@ -26,7 +26,7 @@
         android:ems="10"
         android:hint="@string/enter_content"
         android:inputType="textMultiLine"
-        android:minLines="5"></EditText>
+        android:minLines="5" />
 
     <EditText
         android:id="@+id/date"
@@ -35,7 +35,7 @@
         android:layout_margin="10dp"
         android:ems="10"
         android:hint="@string/enter_date"
-        android:inputType="date"></EditText>
+        android:inputType="date" />
 
     <EditText
         android:id="@+id/enter_tag_id"
@@ -47,12 +47,12 @@
     </EditText>
 
     <Button
-        android:layout_margin="50dp"
         android:id="@+id/add_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/add_record">
-    </Button>
+        android:layout_margin="50dp"
+        android:padding="15dp"
+        android:text="@string/add_record" />
 
 </LinearLayout>

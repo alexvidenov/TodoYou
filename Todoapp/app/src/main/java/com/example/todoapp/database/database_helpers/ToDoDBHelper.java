@@ -41,7 +41,7 @@ public class ToDoDBHelper extends ModelHelper {
         // TODO: Remove TODO rows from TODOTAGS table of removed TODO
         String todoIdString = String.valueOf(todoId);
 
-        sqLiteDatabase.beginTransaction();
+        // sqLiteDatabase.beginTransaction();
         sqLiteDatabase.delete(
                 Database.TABLE_TODO_NAME,
                 Database.COL_TODO_ID + "=?",
@@ -53,8 +53,8 @@ public class ToDoDBHelper extends ModelHelper {
                 new String[]{todoIdString}
         ); */
             // delete todo row connections of deleted todos in TODOTAGS table
-        sqLiteDatabase.setTransactionSuccessful();
-        sqLiteDatabase.endTransaction();
+        // sqLiteDatabase.setTransactionSuccessful();
+        // sqLiteDatabase.endTransaction();
     }
 
     public Cursor fetchAllTodos() {

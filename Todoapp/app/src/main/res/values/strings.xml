@@ -6,6 +6,10 @@
     <string name="edit_todo">Edit TODO</string>
     <string name="view_todo">View TODO</string>
 
+    <string name="create_tag">Create Tag</string>
+    <string name="edit_tag">Edit Tag</string>
+    <string name="view_tag">View Tags</string>
+
     <string name="enter_title">Enter title</string>
     <string name="enter_content">Enter content</string>
     <string name="enter_date">Enter date</string>

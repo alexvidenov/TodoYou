@@ -1,5 +1,6 @@
 package com.example.todoapp.ui.ui_core;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -80,11 +81,7 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
 
             toDoDBHelper.addTodo(todo);
 
+            getActivity().recreate(); // retrigger the state (rebuild it for the new todo)
         }
-    }
-
-    private void returnToHomeScreen(){
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
     }
 }

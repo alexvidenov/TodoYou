@@ -17,10 +17,10 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/action_edit_todo"
+        android:id="@+id/action_create_tag"
         android:checked="false"
-        android:title="@string/edit_todo"
-        android:icon="@drawable/ic_edit_white_24dp"
+        android:title="@string/create_tag"
+        android:icon="@drawable/ic_tag_faces_white_24dp"
         app:showAsAction="ifRoom"/>
 
 </menu>

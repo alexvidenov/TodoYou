@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.todoapp.R;
 import com.example.todoapp.ui.adapter.FragmentPageAdapter;
 import com.example.todoapp.ui.adapter.SetUpActivity;
+import com.example.todoapp.ui.ui_core.CreateTagFragment;
 import com.example.todoapp.ui.ui_core.CreateToDoFragment;
 import com.example.todoapp.ui.ui_core.EditToDoFragment;
 import com.example.todoapp.ui.ui_core.ViewToDoFragment;
@@ -44,7 +45,7 @@ public class MainActivity extends Activity implements BottomNavigationView.OnNav
             case R.id.action_view_todo:
                 viewPager.setCurrentItem(1);
                 break;
-            case R.id.action_edit_todo:
+            case R.id.action_create_tag:
                 viewPager.setCurrentItem(2);
                 break;
         }
@@ -84,6 +85,6 @@ public class MainActivity extends Activity implements BottomNavigationView.OnNav
 
         fragmentPageAdapter.addFragments(new CreateToDoFragment(), "createToDoFragment");
         fragmentPageAdapter.addFragments(new ViewToDoFragment(), "viewToDoFragment");
-        fragmentPageAdapter.addFragments(new EditToDoFragment(), "editToDoFragment");
+        fragmentPageAdapter.addFragments(new CreateTagFragment(), "createTagFragment");
     }
 }

@@ -7,11 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.todoapp.R;
 
-public class EditToDoFragment extends Fragment {
+public class EditToDoFragment extends DialogFragment {
 
     @Nullable
     @Override
