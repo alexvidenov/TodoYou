@@ -23,9 +23,13 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
 
     private SimpleCursorAdapter adapter;
 
-    final String[] from = new String[] { Database.COL_TODO_ID, Database.COL_TODO_TITLE, Database.COL_TODO_CONTENT };
+    final String[] from = new String[] {
+            Database.COL_TODO_ID,
+            Database.COL_TODO_TITLE,
+            Database.COL_TODO_CONTENT,
+    };
 
-    final int[] to = new int[] { R.id.todo_id, R.id.todo_title, R.id.todo_content};
+    final int[] to = new int[] { R.id.todo_id, R.id.todo_title, R.id.todo_content };
 
     @Nullable
     @Override

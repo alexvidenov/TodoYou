@@ -12,6 +12,10 @@
     <string name="enter_tag">Enter tag</string>
     <string name="add_record">Add record</string>
 
-    <string name="empty_list">You have no todos</string>
+    <string name="empty_tag_list">You have no todos</string>
+    <string name="empty_todo_list">You have no todos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

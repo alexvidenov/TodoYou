@@ -1,24 +1,31 @@
 package com.example.todoapp.models;
 
+import java.util.List;
+
 public class Todo {
     private int id;
-    private String title, content, date, tag;
+    private String title, content, date;
+    private List<Integer> tagIDs;
 
     public Todo(){ }
 
-    public Todo(String title, String content, String date, String tag) {
+    public Todo(String title, String content, String date, List<Integer> tagIDs) throws IllegalArgumentException {
+        if(title == null || content == null || date == null || tagIDs == null) {
+            throw new IllegalArgumentException();
+        }
+
         this.title = title;
         this.content = content;
         this.date = date;
-        this.tag = tag;
+        this.tagIDs = tagIDs;
     }
 
-    public Todo(int id, String title, String content, String date, String tag) {
+    public Todo(int id, String title, String content, String date, List<Integer> tagIDs) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.date = date;
-        this.tag = tag;
+        this.tagIDs = tagIDs;
     }
 
     public int getId() {
@@ -53,11 +60,11 @@ public class Todo {
         this.date = date;
     }
 
-    public String getTag() {
-        return tag;
+    public List<Integer> getTagIDs() {
+        return tagIDs;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTag(List<Integer> tagIDs) {
+        this.tagIDs = tagIDs;
     }
 }

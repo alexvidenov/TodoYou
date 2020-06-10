@@ -83,7 +83,7 @@ public class MainActivity extends Activity implements BottomNavigationView.OnNav
         fragmentPageAdapter = new FragmentPageAdapter(getSupportFragmentManager(), this);
 
         fragmentPageAdapter.addFragments(new CreateToDoFragment(), "createToDoFragment");
-        fragmentPageAdapter.addFragments(new EditToDoFragment(), "editToDoFragment");
         fragmentPageAdapter.addFragments(new ViewToDoFragment(), "viewToDoFragment");
+        fragmentPageAdapter.addFragments(new EditToDoFragment(), "editToDoFragment");
     }
 }

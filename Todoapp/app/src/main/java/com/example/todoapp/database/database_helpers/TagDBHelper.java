@@ -20,7 +20,22 @@ public class TagDBHelper extends ModelHelper {
     }
 
     public void removeTag(int tagId){
-        sqLiteDatabase.delete(Database.TABLE_TAG_NAME, Database.COL_TAG_ID + "=?", new String[]{String.valueOf(tagId)});
+        String tagIdString = String.valueOf(tagId);
+
+        sqLiteDatabase.beginTransaction();
+        sqLiteDatabase.delete(
+                Database.TABLE_TAG_NAME,
+                Database.COL_TAG_ID + "=?",
+                new String[]{tagIdString}
+        );
+
+        /* sqLiteDatabase.delete(
+                Database.TABLE_TODOTAGS_NAME,
+                Database.COL_TODOTAGS_TAG_ID + "=?",
+                new String[]{tagIdString}
+        ); */
+        sqLiteDatabase.setTransactionSuccessful();
+        sqLiteDatabase.endTransaction();
     }
 
     // implement other methods like update, query all todo tags, etc.

@@ -16,23 +16,62 @@ public class ToDoDBHelper extends ModelHelper {
     }
 
     public void addTodo(Todo todo){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Database.COL_TODO_TITLE, todo.getTitle());
-        contentValues.put(Database.COL_TODO_CONTENT, todo.getContent());
-        contentValues.put(Database.COL_TODO_DATE, todo.getDate());
-        contentValues.put(Database.COL_TODO_TAG, todo.getTag());
+        ContentValues todoContentValues = new ContentValues();
+        todoContentValues.put(Database.COL_TODO_TITLE, todo.getTitle());
+        todoContentValues.put(Database.COL_TODO_CONTENT, todo.getContent());
+        todoContentValues.put(Database.COL_TODO_DATE, todo.getDate());
+        // TODO: Add records in todotags table depending on todo
 
-        sqLiteDatabase.insert(Database.TABLE_TODO_NAME, null, contentValues);
-        sqLiteDatabase.close();
+        sqLiteDatabase.insert(Database.TABLE_TODO_NAME, null, todoContentValues); // insert the todo
+
+        /* sqLiteDatabase.beginTransaction(); // insert todo tag connections
+        for(int tagID : todo.getTagIDs()) {
+            ContentValues todoTagsContentValues = new ContentValues();
+
+            todoTagsContentValues.put(Database.COL_TODOTAGS_TODO_ID, todo.getId());
+            todoTagsContentValues.put(Database.COL_TODOTAGS_TAG_ID, tagID);
+
+            sqLiteDatabase.insert(Database.TABLE_TODOTAGS_NAME, null, todoTagsContentValues);
+        }
+        sqLiteDatabase.setTransactionSuccessful();
+        sqLiteDatabase.endTransaction(); */
     }
 
-    public void deleteTodo(int todoId){
-        sqLiteDatabase.delete(Database.TABLE_TODO_NAME, Database.COL_TODO_ID + "=?", new String[]{String.valueOf(todoId)});
+    public void deleteTodo(int todoId) {
+        // TODO: Remove TODO rows from TODOTAGS table of removed TODO
+        String todoIdString = String.valueOf(todoId);
+
+        sqLiteDatabase.beginTransaction();
+        sqLiteDatabase.delete(
+                Database.TABLE_TODO_NAME,
+                Database.COL_TODO_ID + "=?",
+                new String[]{todoIdString}
+        );
+        /* sqLiteDatabase.delete(
+                Database.TABLE_TODOTAGS_NAME,
+                Database.COL_TODOTAGS_TODO_ID + "=?",
+                new String[]{todoIdString}
+        ); */
+            // delete todo row connections of deleted todos in TODOTAGS table
+        sqLiteDatabase.setTransactionSuccessful();
+        sqLiteDatabase.endTransaction();
     }
 
-    public Cursor fetchAllTodos(){
-        String[] columns = new String[] { Database.COL_TODO_ID, Database.COL_TODO_TITLE, Database.COL_TODO_CONTENT};
-        Cursor cursor = sqLiteDatabase.query(Database.TABLE_TODO_NAME, columns, null, null, null, null, null);
+    public Cursor fetchAllTodos() {
+        // TODO: Add JOIN on tags from TODOTAGS table to fetch the relevant tag IDs for each Tag
+        String[] columns = new String[] {
+                Database.COL_TODO_ID,
+                Database.COL_TODO_TITLE,
+                Database.COL_TODO_CONTENT
+        };
+        Cursor cursor = sqLiteDatabase.query(
+                Database.TABLE_TODO_NAME, columns,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
         if (cursor != null) {
             cursor.moveToFirst();
         }

@@ -17,6 +17,8 @@ import com.example.todoapp.activities.MainActivity;
 import com.example.todoapp.database.database_helpers.ToDoDBHelper;
 import com.example.todoapp.models.Todo;
 
+import java.util.ArrayList;
+
 public class CreateToDoFragment extends Fragment implements View.OnClickListener {
     private EditText title, content, date, tag;
     private Button addBtn;
@@ -29,7 +31,7 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
         title = view.findViewById(R.id.title);
         content = view.findViewById(R.id.content);
         date = view.findViewById(R.id.date);
-        tag = view.findViewById(R.id.enter_tag);
+        tag = view.findViewById(R.id.enter_tag_id);
 
         addBtn = view.findViewById(R.id.add_record);
 
@@ -50,11 +52,34 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
             final String todoTitle = title.getText().toString();
             final String todoContent = content.getText().toString();
             final String todoDate = date.getText().toString();
-            final String todoTag = tag.getText().toString();
-            final Todo todo = new Todo(todoTitle, todoContent, todoDate, todoTag);
+            final int todoTagsID; // TODO: convert to list later on and get info from dialogfragment
+
+            try {
+                todoTagsID = Integer.parseInt(tag.getText().toString());
+            } catch(NumberFormatException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            // TODO: Show dialog fragment and get id from DB and then pass an entire list on button click here!
+            // TODO: For now, it's just one random ID given in an EditText
+
+            Todo todo;
+
+            try {
+                todo = new Todo(
+                    todoTitle,
+                    todoContent,
+                    todoDate,
+                    new ArrayList<Integer>(){{ add(todoTagsID); }}
+                ); // TODO: Replace with adding entire list
+            } catch(IllegalArgumentException e) {
+                e.printStackTrace();
+                return; // TODO: Add error handling for validation
+            }
+
             toDoDBHelper.addTodo(todo);
 
-            returnToHomeScreen();
         }
     }
 

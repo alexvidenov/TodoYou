@@ -19,6 +19,7 @@ public class EditToDoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_edit_todo, container, false); // inflate the fragment view to the screen
 
         // TODO: Implement more stuff here. . .
+        // TODO: CONVERT TO DIALOGFRAGMENT
 
         return view;
     }

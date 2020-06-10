@@ -11,8 +11,10 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
-        android:hint="@string/enter_title" >
+        android:hint="@string/enter_title">
+
         <requestFocus />
     </EditText>
 
@@ -20,27 +22,28 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
         android:hint="@string/enter_content"
         android:inputType="textMultiLine"
-        android:minLines="5" >
-    </EditText>
+        android:minLines="5"></EditText>
 
     <EditText
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:ems="10"
         android:hint="@string/enter_date"
-        android:inputType="date">
-    </EditText>
+        android:inputType="date"></EditText>
 
     <EditText
-        android:id="@+id/enter_tag"
+        android:id="@+id/enter_tag_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/enter_tag">
+        android:inputType="number"
+        android:hint="@string/enter_tag">
     </EditText>
 
     <Button
