@@ -88,6 +88,23 @@ public class TagDBHelper extends ModelHelper {
        return tagTitles;
     }
 
+    public Cursor fetchAllTagsReturnsCursor(){
+        String[] columns = new String[] {
+                Database.COL_TAG_ID,
+                Database.COL_TAG_TITLE
+        };
+
+        return sqLiteDatabase.query(
+                Database.TABLE_TAG_NAME,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+    }
+
     public List<Tag> fetchAllTags() {
         List<Tag> tags = new ArrayList<>();
         String[] columns = new String[] {

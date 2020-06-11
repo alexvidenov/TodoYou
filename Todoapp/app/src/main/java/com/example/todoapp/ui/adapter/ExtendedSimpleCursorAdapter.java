@@ -19,15 +19,19 @@ import com.example.todoapp.database.database_helpers.TodoDBHelper;
 import com.example.todoapp.database.database_helpers.TodoTagDBHelper;
 import com.example.todoapp.handlers.UIHandler;
 import com.example.todoapp.modules.Tag;
+import com.example.todoapp.ui.fragments.dialogs.EditTagDialogFragment;
 import com.example.todoapp.ui.fragments.dialogs.EditToDoDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExtendedSimpleCursorAdapter extends SimpleCursorAdapter {
+    private boolean isTag;
 
     private TodoDBHelper toDoDBHelper; // helper for toDo DB transactions
     private TagDBHelper tagDBHelper; // helper for tag DB transactions
+
+    private ImageButton deleteButton, editButton;
 
     private Cursor cursor; // current cursor (to be requeired if needed)
     private Fragment targetFragment; // fragment from wherein the adapter is used (used in dialog invocation)
@@ -65,6 +69,7 @@ public class ExtendedSimpleCursorAdapter extends SimpleCursorAdapter {
     }
 
     public ExtendedSimpleCursorAdapter( // For both
+                                        boolean isTag,
             @NonNull Cursor cursor,
             @NonNull TodoDBHelper toDoDBHelper,
             @NonNull TagDBHelper tagDBHelper,
@@ -72,6 +77,7 @@ public class ExtendedSimpleCursorAdapter extends SimpleCursorAdapter {
             Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         this(context, layout, c, from, to, flags);
 
+        this.isTag = isTag;
         this.cursor = cursor;
         this.toDoDBHelper = toDoDBHelper;
         this.tagDBHelper = tagDBHelper;
@@ -108,38 +114,61 @@ public class ExtendedSimpleCursorAdapter extends SimpleCursorAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View receivedView = super.getView(position, convertView, parent);
 
-        ImageButton deleteButton, editButton;
-        deleteButton = receivedView.findViewById(R.id.delete_todo_button);
-        editButton = receivedView.findViewById(R.id.edit_todo_button);
+        if(isTag) {
+            deleteButton = receivedView.findViewById(R.id.delete_tag_button);
+            editButton = receivedView.findViewById(R.id.edit_tag_button);
 
-        TextView toDoIdTextView; // useful when searching for all tags of a given todo
-        toDoIdTextView = receivedView.findViewById(R.id.todo_id);
-        int toDoId = Integer.parseInt(toDoIdTextView.getText().toString()); // get todo id
+            TextView tagIdTextView = receivedView.findViewById(R.id.tag_id_textView);
+            int tagId = Integer.parseInt(tagIdTextView.getText().toString());
 
-        initTagList(receivedView, toDoId);
+            deleteButton.setOnClickListener((view) -> {
+                tagDBHelper.deleteTag(tagId);
 
-        deleteButton.setOnClickListener((view) -> {
+                cursor.requery();
+
+                notifyDataSetChanged();
+            });
+
+            editButton.setOnClickListener((view) -> {
+                EditTagDialogFragment editTagDialogFragment =
+                        new EditTagDialogFragment(UIHandler.getTagFromView(receivedView), this);
+
+                editTagDialogFragment.setTargetFragment(targetFragment, 1); // set original fragment
+                editTagDialogFragment.show(targetFragment.getFragmentManager(), "EditTagDialogFragment");
+            });
+        } else {
+            deleteButton = receivedView.findViewById(R.id.delete_todo_button);
+            editButton = receivedView.findViewById(R.id.edit_todo_button);
+
+            TextView toDoIdTextView; // useful when searching for all tags of a given todo
+            toDoIdTextView = receivedView.findViewById(R.id.todo_id);
+            int toDoId = Integer.parseInt(toDoIdTextView.getText().toString()); // get todo id
+
+            initTagList(receivedView, toDoId);
+
+            deleteButton.setOnClickListener((view) -> {
                 // delete the item visually for the current state
                 // (it won't render on the next because it's gone from DB)
 
-            toDoDBHelper.deleteTodo(toDoId);
+                toDoDBHelper.deleteTodo(toDoId);
 
-            cursor.requery(); // TODO: Update with LoaderManager and handle cursor state that way
+                cursor.requery(); // TODO: Update with LoaderManager and handle cursor state that way
 
-            notifyDataSetChanged();
-        });
+                notifyDataSetChanged();
+            });
 
-        editButton.setOnClickListener((view) -> {
+            editButton.setOnClickListener((view) -> {
 
-            EditToDoDialogFragment editToDoDialogFragment =
-                new EditToDoDialogFragment(
-                        UIHandler.getToDoFromView(receivedView),
-                        this
-                    );
-            editToDoDialogFragment.setTargetFragment(targetFragment, 1); // set original fragment
-            editToDoDialogFragment.show(targetFragment.getFragmentManager(), "EditToDoDialogFragment");
+                EditToDoDialogFragment editToDoDialogFragment =
+                        new EditToDoDialogFragment(
+                                UIHandler.getToDoFromView(receivedView),
+                                this
+                        );
+                editToDoDialogFragment.setTargetFragment(targetFragment, 1); // set original fragment
+                editToDoDialogFragment.show(targetFragment.getFragmentManager(), "EditToDoDialogFragment");
                 // show dialog
-        });
+            });
+        }
 
         return receivedView;
     }

@@ -17,6 +17,13 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/action_view_tag"
+        android:checked="false"
+        android:title="@string/view_tag"
+        android:icon="@drawable/ic_eye_white_24dp"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/action_create_tag"
         android:checked="false"
         android:title="@string/create_tag"

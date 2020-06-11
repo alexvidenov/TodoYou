@@ -7,8 +7,6 @@
     android:orientation="vertical"
     android:background="@color/colorMainDark">
 
-    <!-- TODO implement the actual layout -->
-
     <TextView
         android:id="@+id/edit_todo_header"
         android:layout_width="333dp"

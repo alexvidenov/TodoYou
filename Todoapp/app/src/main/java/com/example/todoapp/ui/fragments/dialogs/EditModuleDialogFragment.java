@@ -36,7 +36,7 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
     protected EditText[] editFields; // fields for editing
     protected Button chooseNewTag; // editing todo also allows you to change tags
 
-    private TagDBHelper tagDBHelper;
+    protected TagDBHelper tagDBHelper;
 
     protected List<Tag> allTags; // all tags available
     protected boolean[] selectedTags;
@@ -45,9 +45,6 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
 
     protected T module; // given instance of given module (tag/todo)
     protected ExtendedSimpleCursorAdapter adapter; // adapter for the ListView in ViewToDoFragment
-
-    // TODO: Add 'Edit Tags' button and functionality for edit todo
-    //  Can't edit tags for now (add later)
 
     protected void setEditFields() { // overriden later. . .
         editFields[0].setText(module.getTitle()); // all modules have a title, get it here

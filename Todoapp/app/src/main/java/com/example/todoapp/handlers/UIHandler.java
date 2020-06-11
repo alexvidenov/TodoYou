@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.todoapp.R;
+import com.example.todoapp.modules.Tag;
 import com.example.todoapp.modules.Todo;
 
 import java.util.ArrayList;
@@ -53,18 +54,41 @@ public class UIHandler { // Handler designed to handle general UI trials and tri
         // TODO: Add mapping to tag IDs for tags ListView
         //  by iterating through the listview inside of the current view
 
+        return result;
+    }
+
+    public static Map<String, Object> getTagValuesByView(View tagView){
+        Map<String, Object> result = new HashMap<>();
+        TextView tagIdTextView = tagView.findViewById(R.id.tag_id_textView);
+
+        Integer tagId = Integer.parseInt(tagIdTextView.getText().toString()); // get tag id
+        result.put("id", tagId);
+
+        TextView tagTitleTextView = tagView.findViewById(R.id.tag_title_textView);
+        String tagTitle = tagTitleTextView.getText().toString();
+        result.put("title", tagTitle);
 
         return result;
     }
 
     public static Todo getToDoFromView(View todoView) {
         Map<String, Object> values = getToDoValuesByView(todoView);
+
         return new Todo(
                 (int) values.get("id"),
                 (String) values.get("title"),
                 (String) values.get("content"),
                 (String) values.get("date"),
                 (List<Integer>) values.get("tagIds")
+        );
+    }
+
+    public static Tag getTagFromView(View tagView){
+        Map<String, Object> values = getTagValuesByView(tagView);
+
+        return new Tag(
+                (int) values.get("id"),
+                (String) values.get("title")
         );
     }
 }

@@ -59,6 +59,7 @@ public class ViewToDoFragment extends Fragment {
 
         // init ListView adapter
         adapter = new ExtendedSimpleCursorAdapter(
+                false,
                 cursor,
                 toDoDBHelper,
                 tagDBHelper,
