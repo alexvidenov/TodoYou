@@ -3,7 +3,9 @@ package com.example.todoapp.database.database_helpers;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 
 import com.example.todoapp.database.Database;
 import com.example.todoapp.models.Todo;
@@ -26,7 +28,6 @@ public class ToDoDBHelper extends ModelHelper {
 
     public void addTodo(Todo todo) {
         ContentValues todoContentValues = populateToDoValues(todo);
-        // TODO: Add records in todotags table depending on todo
 
         sqLiteDatabase.insert(
                 Database.TABLE_TODO_NAME,
@@ -34,7 +35,7 @@ public class ToDoDBHelper extends ModelHelper {
                 todoContentValues
         ); // insert the todo
 
-        /* sqLiteDatabase.beginTransaction(); // insert todo tag connections
+        sqLiteDatabase.beginTransaction(); // insert todo tag connections
         for(int tagID : todo.getTagIDs()) {
             ContentValues todoTagsContentValues = new ContentValues();
 
@@ -44,7 +45,7 @@ public class ToDoDBHelper extends ModelHelper {
             sqLiteDatabase.insert(Database.TABLE_TODOTAGS_NAME, null, todoTagsContentValues);
         }
         sqLiteDatabase.setTransactionSuccessful();
-        sqLiteDatabase.endTransaction(); */
+        sqLiteDatabase.endTransaction();
     }
 
     public void deleteTodo(int todoId) {
@@ -90,6 +91,17 @@ public class ToDoDBHelper extends ModelHelper {
         return cursor;
     }
 
+    public int fetchSingleTodoId(String name){
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT _id FROM todos WHERE todo_title = ?", new String[]{ name });
+        if(cursor.moveToFirst()){
+            int todoId = cursor.getInt(cursor.getColumnIndex(Database.COL_TODO_ID));
+            cursor.close();
+            return todoId;
+        }
+        cursor.close();
+        throw new SQLException();
+    }
+
     public void updateToDo(Todo todo) {
         ContentValues todoContentValues = populateToDoValues(todo);
 
@@ -100,8 +112,7 @@ public class ToDoDBHelper extends ModelHelper {
                 new String[]{String.valueOf(todo.getId())}
         );
 
-
-        /* sqLiteDatabase.beginTransaction(); // update todo tag connections
+        sqLiteDatabase.beginTransaction(); // update todo tag connections
         for(int tagID : todo.getTagIDs()) {
             ContentValues todoTagsContentValues = new ContentValues();
 
@@ -112,10 +123,8 @@ public class ToDoDBHelper extends ModelHelper {
                 // will replace if there is a row with the same primary key (i.e. the same TODO id)
         }
         sqLiteDatabase.setTransactionSuccessful();
-        sqLiteDatabase.endTransaction(); */
+        sqLiteDatabase.endTransaction();
     }
-    // implement other methods like update, delete, etc.
-
 
 }
 

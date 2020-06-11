@@ -13,7 +13,7 @@
     <string name="enter_title">Enter title</string>
     <string name="enter_content">Enter content</string>
     <string name="enter_date">Enter date</string>
-    <string name="enter_tag">Enter tag</string>
+    <string name="enter_tag">Choose Tag</string>
     <string name="add_record">Add record</string>
 
     <string name="empty_tag_list">You have no todos</string>
@@ -23,6 +23,9 @@
     <string name="create_todo_description">Input the values in the forms and press the button to create your ToDo!</string>
     <string name="edit_todo_header">Edit your ToDo!</string>
     <string name="edit_todo_description">Change the values here and confirm the changes to update your ToDo.</string>
+
+    <string name="create_tag_header">Create a Tag!</string>
+    <string name="create_tag_description">Input the values in the form and press the button to create your Tag!</string>
 
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>

@@ -2,11 +2,17 @@ package com.example.todoapp.database.database_helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 
 import com.example.todoapp.database.Database;
 import com.example.todoapp.models.Tag;
 import com.example.todoapp.models.Todo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TagDBHelper extends ModelHelper {
 
@@ -55,6 +61,45 @@ public class TagDBHelper extends ModelHelper {
                 Database.COL_TAG_ID + "=?",
                 new String[]{String.valueOf(tag.getId())}
         );
+    }
+
+    public List<String> fetchAllTags(){
+        List<String> tagTitles = new ArrayList<>();
+        String[] columns = new String[]{
+                Database.COL_TAG_ID, Database.COL_TAG_TITLE
+        };
+
+        Cursor cursor = sqLiteDatabase.query(Database.TABLE_TAG_NAME, columns, null, null, null,null, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                String title = cursor.getString(cursor.getColumnIndex(Database.COL_TAG_TITLE));
+                tagTitles.add(title);
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+
+       return tagTitles;
+    }
+
+    public int fetchSingleTagId(String title){
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT _id FROM tags WHERE tag_title = ?", new String[]{ title });
+        if(cursor.moveToNext()){
+            int tagId = cursor.getInt(cursor.getColumnIndex(Database.COL_TAG_ID));
+            cursor.close();
+            return tagId;
+        }
+        throw new SQLException();
+    }
+
+    public String fetchSingleTagTitle(int tagID){
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT tag_title FROM tags WHERE _id = ?", new String[]{ String.valueOf(tagID) });
+        if(cursor.moveToNext()){
+            String tagTitle = cursor.getString(cursor.getColumnIndex(Database.COL_TAG_TITLE));
+            cursor.close();
+            return tagTitle;
+        }
+        throw new SQLException();
     }
 
 }

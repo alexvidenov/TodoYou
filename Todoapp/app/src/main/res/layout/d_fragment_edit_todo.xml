@@ -81,6 +81,13 @@
         android:textColorHighlight="@color/white"
         android:textColorHint="@color/white" />
 
+    <Button
+        android:id="@+id/edit_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="@string/enter_tag" />
+
     <LinearLayout
         android:id="@+id/edit_todo_button_pair"
         android:layout_width="match_parent"

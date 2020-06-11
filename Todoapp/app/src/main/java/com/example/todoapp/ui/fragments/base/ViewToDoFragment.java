@@ -13,19 +13,22 @@ import android.widget.SimpleCursorAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.R;
 import com.example.todoapp.database.Database;
 import com.example.todoapp.database.database_helpers.ToDoDBHelper;
+import com.example.todoapp.database.database_helpers.TodoTagDBHelper;
 import com.example.todoapp.ui.adapter.ExtendedSimpleCursorAdapter;
+import com.example.todoapp.ui.adapter.HorizontalTagAdapter;
 
 public class ViewToDoFragment extends Fragment implements ListView.OnItemClickListener {
     private ListView todosListView;
     private ToDoDBHelper toDoDBHelper;
 
     private SimpleCursorAdapter adapter;
-
-    private ImageButton deleteButton, editButton;
+    private TodoTagDBHelper todoTagDBHelper;
 
     final String[] from = new String[] {
             Database.COL_TODO_ID,
@@ -41,7 +44,6 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
             R.id.todo_date
     };
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
 
         // init DB cursor
         toDoDBHelper = new ToDoDBHelper(getActivity());
+        todoTagDBHelper = new TodoTagDBHelper(getActivity());
         Cursor cursor = toDoDBHelper.fetchAllTodos();
 
         // get all todo information in list

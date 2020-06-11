@@ -1,5 +1,6 @@
 package com.example.todoapp.ui.fragments.dialogs;
 
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.todoapp.R;
+import com.example.todoapp.database.database_helpers.TagDBHelper;
 import com.example.todoapp.database.database_helpers.ToDoDBHelper;
 import com.example.todoapp.models.Module;
 import com.example.todoapp.models.Todo;
@@ -21,6 +23,7 @@ import com.example.todoapp.models.Tag;
 import com.example.todoapp.ui.adapter.ExtendedSimpleCursorAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // superclass for all dialogfragments relating to editing of the app's modules
 // defaults to EditTodo layout
@@ -29,6 +32,16 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
         // ex: title - Edit Tag; description - Input your new values!
     protected Button[] actionButtons; // action buttons at the bottom (back, confirm)
     protected EditText[] editFields; // fields for editing
+    protected Button chooseNewTag; // editing todo also allows you to change tags
+
+    private TagDBHelper tagDBHelper = new TagDBHelper(getContext());
+
+    protected String[] allTags; // all tags available
+    protected boolean[] selectedTags;
+    protected List<Integer> finalTags; // holds indexes of values from allTags that are checked
+
+    private List<Integer> todoTagIds; // holds tag id's that the user wants in their todo
+
 
     protected T module; // given instance of given module (tag/todo)
     protected ExtendedSimpleCursorAdapter adapter; // adapter for the ListView in ViewToDoFragment
@@ -48,8 +61,35 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
     protected void setActionButtonListeners() { // overridden later. . .
         Button submit = actionButtons[0];
         Button cancel = actionButtons[1];
+        Button chooseTag = chooseNewTag;
 
         ToDoDBHelper toDoDBHelper = new ToDoDBHelper(getContext()); // get the dialog context
+
+        chooseTag.setOnClickListener((view) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Choose your Tag!");
+            builder.setMultiChoiceItems(allTags, selectedTags, (dialog, which, isChecked) -> {
+                if(isChecked){
+                    if(!finalTags.contains(which)){
+                        finalTags.add(which);
+                    } else {
+                        finalTags.remove(which);
+                    }
+                }
+            });
+
+            builder.setCancelable(false);
+
+            builder.setPositiveButton("Add", (dialog, which) -> {
+                for(int i = 0; i < finalTags.size(); i++){
+                    String currentTagName = allTags[finalTags.get(i)];
+                    int currentTagId = tagDBHelper.fetchSingleTagId(currentTagName); // adding the tagId to the list of tagIds
+                    todoTagIds.add(currentTagId);
+                }
+            });
+
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        });
 
         submit.setOnClickListener((view) -> {
             final Todo todo = new Todo(
@@ -57,7 +97,7 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
                 editFields[0].getText().toString(),
                 editFields[1].getText().toString(),
                 editFields[2].getText().toString(),
-                new ArrayList<>() // TODO: Replace with mapped array of tag Ids
+                todoTagIds
             );
             toDoDBHelper.updateToDo(todo);
 
@@ -67,12 +107,18 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
 
             getDialog().dismiss(); // dismiss the dialog
         });
+
         cancel.setOnClickListener((view) -> getDialog().dismiss()); // dismiss the dialog from the view;
     }
 
     public EditModuleDialogFragment(T module, ExtendedSimpleCursorAdapter adapter) {
         this.module = module;
         this.adapter = adapter;
+
+        allTags = (String[]) tagDBHelper.fetchAllTags().toArray(); // fetching all tags
+        selectedTags = new boolean[allTags.length];
+        finalTags = new ArrayList<>();
+        todoTagIds = new ArrayList<>();
     }
 
     // IMPORTANT:
@@ -92,6 +138,8 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
                 view.findViewById(R.id.edit_todo_date)};
 
         actionButtons = new Button[]{view.findViewById(R.id.confirm_button), view.findViewById(R.id.cancel_button)};
+
+        chooseNewTag = view.findViewById(R.id.edit_tag);
 
         setEditFields();
 

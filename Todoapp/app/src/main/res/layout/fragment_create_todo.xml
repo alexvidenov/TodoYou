@@ -66,13 +66,12 @@
         android:hint="@string/enter_date"
         android:inputType="date" />
 
-    <EditText
+    <Button
         android:id="@+id/enter_tag_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="@string/enter_tag"
-        android:inputType="number"></EditText>
+        android:hint="@string/enter_tag" />
 
     <Button
         android:id="@+id/add_record"

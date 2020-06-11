@@ -37,7 +37,8 @@
             android:paddingRight="10dp"
             android:textColor="@color/white"
             android:textSize="36sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/todo_content"
@@ -50,7 +51,8 @@
             android:padding="50dp"
             android:textColor="@color/white"
             android:textSize="30sp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/todo_date"
@@ -63,7 +65,13 @@
             android:padding="30dp"
             android:textColor="@color/white"
             android:textSize="30sp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginLeft="10dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/todoRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
