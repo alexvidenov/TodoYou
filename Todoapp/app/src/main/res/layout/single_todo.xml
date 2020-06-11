@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/round_todo_card"
     android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/colorMainAccent">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/todo_content_layout"
@@ -19,11 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginStart="6dp"
             android:gravity="left"
-            android:padding="30dp"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="30sp"
             android:visibility="visible" />
 
         <TextView
@@ -31,43 +30,92 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
-            android:maxLines="3"
             android:gravity="left"
-            android:padding="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:maxLines="3"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:textColor="@color/white"
             android:textSize="36sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/todo_content"
+        <LinearLayout
+            android:id="@+id/todo_description_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/roboto_medium"
-            android:maxLines="4"
-            android:padding="20dp"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:visibility="visible" />
+            android:layout_gravity="left"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/todo_date"
+            <TextView
+                android:id="@+id/todo_content_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:maxLines="3"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/description"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/todo_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_medium"
+                android:maxLines="4"
+                android:padding="20dp"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/todo_date_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/roboto_medium"
-            android:maxLines="4"
-            android:padding="30dp"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:visibility="visible" />
+            android:layout_gravity="left"
+            android:orientation="horizontal">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/todo_recycler_view"
+            <TextView
+                android:id="@+id/todo_date_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:maxLines="3"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/until"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/todo_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_medium"
+                android:maxLines="4"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/todo_grid_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
 
     </LinearLayout>
 
@@ -87,6 +135,7 @@
             android:layout_gravity="right"
             android:layout_weight="1"
             android:background="@drawable/ic_edit_white_24dp" />
+
         <ImageButton
             android:id="@+id/delete_todo_button"
             android:layout_width="60dp"

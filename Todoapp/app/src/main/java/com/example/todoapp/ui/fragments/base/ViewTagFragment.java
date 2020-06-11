@@ -36,7 +36,7 @@ public class ViewTagFragment extends Fragment {
 
     final int[] to = new int[] {
             R.id.tag_id_textView,
-            R.id.tag_title_textView,
+            R.id.tag_title,
     };
 
     public ViewTagFragment() {
@@ -65,7 +65,11 @@ public class ViewTagFragment extends Fragment {
                 todoDBHelper,
                 tagDBHelper,
                 this,
-                getActivity(), R.layout.single_tag, cursor, from, to, 0
+                getActivity(), R.layout.single_tag,
+                cursor,
+                from,
+                to,
+                0
         );
         adapter.notifyDataSetChanged();
 

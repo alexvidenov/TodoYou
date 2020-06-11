@@ -32,4 +32,7 @@
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
 
+    <string name="description">Description: </string>
+    <string name="until">Until: </string>
+
 </resources>

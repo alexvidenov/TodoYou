@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/colorMainAccent" />
+    <corners android:radius="120dp" /> <!--Gives the round feel by altering the button's corners' radius-->
+
+    <padding android:top="15dp" />
+    <padding android:left="20dp" />
+    <padding android:bottom="15dp" />
+    <padding android:right="20dp" />
+
+</shape>

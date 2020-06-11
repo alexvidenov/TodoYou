@@ -9,9 +9,9 @@
         android:id="@+id/tags_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="1dp"
-        android:padding="10dp" >
-    </ListView>
+        android:divider="@color/white"
+        android:dividerHeight="10dp"
+        android:padding="10dp"></ListView>
 
     <TextView
         android:id="@+id/tag_empty"

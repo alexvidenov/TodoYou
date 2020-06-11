@@ -1,10 +1,16 @@
 package com.example.todoapp.handlers;
 
+import android.os.Build;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.todoapp.R;
 import com.example.todoapp.modules.Tag;
@@ -64,7 +70,7 @@ public class UIHandler { // Handler designed to handle general UI trials and tri
         Integer tagId = Integer.parseInt(tagIdTextView.getText().toString()); // get tag id
         result.put("id", tagId);
 
-        TextView tagTitleTextView = tagView.findViewById(R.id.tag_title_textView);
+        TextView tagTitleTextView = tagView.findViewById(R.id.tag_title);
         String tagTitle = tagTitleTextView.getText().toString();
         result.put("title", tagTitle);
 
@@ -90,5 +96,38 @@ public class UIHandler { // Handler designed to handle general UI trials and tri
                 (int) values.get("id"),
                 (String) values.get("title")
         );
+    }
+
+    // Credit to Hiren Patel from SO for this method: https://stackoverflow.com/questions/6005245/how-to-have-a-gridview-that-adapts-its-height-when-items-are-added
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    public static void setGridViewDynamicHeight(GridView gridView, int columnNumber) {
+        ListAdapter gridViewAdapter = gridView.getAdapter();
+
+        if (gridViewAdapter == null || columnNumber == 1) {
+            // pre-condition (guard clause)
+            return;
+        }
+
+        int items = gridViewAdapter.getCount();
+        int rows;
+
+        View listItem = gridViewAdapter.getView(0, null, gridView); // get first li view (all are the same)
+        listItem.measure(0, 0); // measure li
+
+        int gridRowVerticalSpacing = gridView.getVerticalSpacing();
+
+        int totalHeight = listItem.getMeasuredHeight() + (gridRowVerticalSpacing > 0 ? gridRowVerticalSpacing : 1);
+            // get current height with account for vertical spacing (safeguard if it's not present)
+
+        float x;
+        if(items > columnNumber){
+            x = items / columnNumber; // get number of rows needed to display by dividing items to columns
+            rows = (int) (x + 1); // increase rows (round by casting to int)
+            totalHeight *= rows; // increase height
+        }
+
+        ViewGroup.LayoutParams params = gridView.getLayoutParams(); // get old params
+        params.height = totalHeight; // set new height
+        gridView.setLayoutParams(params); // set new params with new height
     }
 }

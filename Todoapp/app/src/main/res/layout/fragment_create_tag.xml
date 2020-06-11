@@ -42,10 +42,9 @@
         android:id="@+id/tag_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         android:ems="10"
-        android:hint="@string/enter_tag">
-    </EditText>
+        android:hint="@string/enter_tag"></EditText>
 
     <Button
         android:id="@+id/add_tag"
@@ -53,8 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="50dp"
-        android:background="@color/colorMainAccent"
-        android:padding="15dp"
+        android:background="@drawable/round_action_button"
+        android:shadowColor="@color/colorMain"
+        android:shadowRadius="10"
         android:text="@string/add_record" />
 
 </LinearLayout>

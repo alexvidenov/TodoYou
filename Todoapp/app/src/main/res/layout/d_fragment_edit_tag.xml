@@ -5,8 +5,9 @@
     android:id="@+id/fragment_edit_tag"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".ui.fragments.dialogs.EditTagDialogFragment"
-    android:orientation="vertical">
+    android:background="@color/colorMainDark"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.dialogs.EditTagDialogFragment">
 
     <TextView
         android:id="@+id/edit_tag_header"
@@ -49,10 +50,11 @@
         android:layout_margin="10dp"
         android:ems="10"
         android:hint="@string/enter_title"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:textColor="@color/white"
         android:textColorHighlight="@color/white"
-        android:textColorHint="@color/white">
-    </EditText>
+        android:textColorHint="@color/white" />
 
     <LinearLayout
         android:id="@+id/edit_tag_button_pair"
@@ -67,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@color/colorMainAccent"
+            android:background="@drawable/round_action_button"
             android:text="@string/cancel" />
 
         <Button
@@ -76,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:background="@color/colorMainAccent"
+            android:background="@drawable/round_action_button"
             android:text="@string/confirm" />
 
     </LinearLayout>
