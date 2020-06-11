@@ -1,6 +1,5 @@
 package com.example.todoapp.handlers;
 
-import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.todoapp.R;
-import com.example.todoapp.models.Todo;
+import com.example.todoapp.modules.Todo;
 
 import java.util.ArrayList;
 import java.util.HashMap;

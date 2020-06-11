@@ -67,7 +67,7 @@
         android:inputType="date" />
 
     <Button
-        android:id="@+id/enter_tag_id"
+        android:id="@+id/choose_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

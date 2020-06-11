@@ -15,12 +15,12 @@ import android.widget.EditText;
 
 import com.example.todoapp.R;
 import com.example.todoapp.database.database_helpers.TagDBHelper;
-import com.example.todoapp.models.Tag;
+import com.example.todoapp.modules.Tag;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateTagFragment extends Fragment implements View.OnClickListener{
+public class CreateTagFragment extends Fragment implements View.OnClickListener {
     private EditText tagTitle;
     private Button addBtn;
     private TagDBHelper tagDBHelper;
@@ -54,7 +54,9 @@ public class CreateTagFragment extends Fragment implements View.OnClickListener{
         if(v.getId() == R.id.add_tag){
             final String tag = tagTitle.getText().toString();
 
-            tagDBHelper.addTag(new Tag(tag));
+            if(!tag.equals("")) {
+                tagDBHelper.addTag(new Tag(tag));
+            }
         }
     }
 }

@@ -1,7 +1,8 @@
 package com.example.todoapp.ui.fragments.dialogs;
 
 import android.app.AlertDialog;
-import android.database.Cursor;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +13,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.todoapp.R;
 import com.example.todoapp.database.database_helpers.TagDBHelper;
-import com.example.todoapp.database.database_helpers.ToDoDBHelper;
-import com.example.todoapp.models.Module;
-import com.example.todoapp.models.Todo;
-import com.example.todoapp.models.Tag;
+import com.example.todoapp.database.database_helpers.TodoDBHelper;
+import com.example.todoapp.database.database_helpers.TodoTagDBHelper;
+import com.example.todoapp.modules.Module;
+import com.example.todoapp.modules.Tag;
+import com.example.todoapp.modules.Todo;
 import com.example.todoapp.ui.adapter.ExtendedSimpleCursorAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // superclass for all dialogfragments relating to editing of the app's modules
@@ -34,14 +36,12 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
     protected EditText[] editFields; // fields for editing
     protected Button chooseNewTag; // editing todo also allows you to change tags
 
-    private TagDBHelper tagDBHelper = new TagDBHelper(getContext());
+    private TagDBHelper tagDBHelper;
 
-    protected String[] allTags; // all tags available
+    protected List<Tag> allTags; // all tags available
     protected boolean[] selectedTags;
-    protected List<Integer> finalTags; // holds indexes of values from allTags that are checked
 
-    private List<Integer> todoTagIds; // holds tag id's that the user wants in their todo
-
+    protected List<Integer> toDoTagIds; // holds tag id's that the user wants in their todo
 
     protected T module; // given instance of given module (tag/todo)
     protected ExtendedSimpleCursorAdapter adapter; // adapter for the ListView in ViewToDoFragment
@@ -58,46 +58,55 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     protected void setActionButtonListeners() { // overridden later. . .
         Button submit = actionButtons[0];
         Button cancel = actionButtons[1];
         Button chooseTag = chooseNewTag;
 
-        ToDoDBHelper toDoDBHelper = new ToDoDBHelper(getContext()); // get the dialog context
+        TodoDBHelper toDoDBHelper = new TodoDBHelper(getContext()); // get the dialog context
 
         chooseTag.setOnClickListener((view) -> {
+            // TODO: Extract in widget (AlertDialog fragment). Horrid code duplication!
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Choose your Tag!");
-            builder.setMultiChoiceItems(allTags, selectedTags, (dialog, which, isChecked) -> {
-                if(isChecked){
-                    if(!finalTags.contains(which)){
-                        finalTags.add(which);
+            builder.setMultiChoiceItems(
+                    allTags.stream()
+                            .map(Tag::getTitle)
+                            .toArray(String[]::new),
+                    selectedTags,
+                (dialog, which, isChecked) -> {
+                    selectedTags[which] = isChecked;
+
+                    // which - idx
+                    // id - tag id
+                    int id = which + 1;
+
+                    if(!toDoTagIds.contains(id) && isChecked) {
+                        toDoTagIds.add(id); // id = idx + 1 (ids in DB start from 1 and array elements - 0)
+                            // add at the id - 1 index
                     } else {
-                        finalTags.remove(which);
+                       toDoTagIds.remove((Integer) id);
                     }
-                }
             });
 
             builder.setCancelable(false);
 
-            builder.setPositiveButton("Add", (dialog, which) -> {
-                for(int i = 0; i < finalTags.size(); i++){
-                    String currentTagName = allTags[finalTags.get(i)];
-                    int currentTagId = tagDBHelper.fetchSingleTagId(currentTagName); // adding the tagId to the list of tagIds
-                    todoTagIds.add(currentTagId);
-                }
-            });
+            builder.setPositiveButton("Add", (dialog, which) -> dialog.dismiss());
 
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+            builder.show();
         });
 
         submit.setOnClickListener((view) -> {
+            System.out.println(toDoTagIds);
             final Todo todo = new Todo(
                 module.getId(), // ID of new todos are the same as old ones
                 editFields[0].getText().toString(),
                 editFields[1].getText().toString(),
                 editFields[2].getText().toString(),
-                todoTagIds
+                    toDoTagIds
             );
             toDoDBHelper.updateToDo(todo);
 
@@ -114,11 +123,20 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
     public EditModuleDialogFragment(T module, ExtendedSimpleCursorAdapter adapter) {
         this.module = module;
         this.adapter = adapter;
+    }
 
-        allTags = (String[]) tagDBHelper.fetchAllTags().toArray(); // fetching all tags
-        selectedTags = new boolean[allTags.length];
-        finalTags = new ArrayList<>();
-        todoTagIds = new ArrayList<>();
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void initTagInfo() {
+        Context context = getContext();
+        tagDBHelper = new TagDBHelper(context);
+
+        allTags = tagDBHelper.fetchAllTags(); // fetching all tags
+        selectedTags = new boolean[allTags.size()];
+
+        // TODO: Ensure that module is todo
+        toDoTagIds = new TodoTagDBHelper(context).fetchCorrespondingTagIds(module.getId());
+        System.out.println("initial tag ids: " + toDoTagIds);
+        toDoTagIds.forEach(id -> selectedTags[id - 1] = true);
     }
 
     // IMPORTANT:
@@ -126,6 +144,7 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
     // onCreate layout handling
 
     // all other DialogFragments should override the onCreateView method
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -140,6 +159,8 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
         actionButtons = new Button[]{view.findViewById(R.id.confirm_button), view.findViewById(R.id.cancel_button)};
 
         chooseNewTag = view.findViewById(R.id.edit_tag);
+
+        initTagInfo();
 
         setEditFields();
 

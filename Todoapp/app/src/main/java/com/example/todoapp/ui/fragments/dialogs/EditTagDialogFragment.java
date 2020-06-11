@@ -1,8 +1,7 @@
 package com.example.todoapp.ui.fragments.dialogs;
 
 
-import android.database.Cursor;
-import com.example.todoapp.models.Tag;
+import com.example.todoapp.modules.Tag;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;

@@ -1,34 +1,30 @@
 package com.example.todoapp.ui.fragments.base;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.R;
 import com.example.todoapp.database.Database;
-import com.example.todoapp.database.database_helpers.ToDoDBHelper;
-import com.example.todoapp.database.database_helpers.TodoTagDBHelper;
+import com.example.todoapp.database.database_helpers.TagDBHelper;
+import com.example.todoapp.database.database_helpers.TodoDBHelper;
 import com.example.todoapp.ui.adapter.ExtendedSimpleCursorAdapter;
-import com.example.todoapp.ui.adapter.HorizontalTagAdapter;
 
-public class ViewToDoFragment extends Fragment implements ListView.OnItemClickListener {
+public class ViewToDoFragment extends Fragment {
     private ListView todosListView;
-    private ToDoDBHelper toDoDBHelper;
+    private TodoDBHelper toDoDBHelper;
+    private TagDBHelper tagDBHelper;
 
     private SimpleCursorAdapter adapter;
-    private TodoTagDBHelper todoTagDBHelper;
 
     final String[] from = new String[] {
             Database.COL_TODO_ID,
@@ -54,8 +50,9 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
         todosListView.setEmptyView(view.findViewById(R.id.empty));
 
         // init DB cursor
-        toDoDBHelper = new ToDoDBHelper(getActivity());
-        todoTagDBHelper = new TodoTagDBHelper(getActivity());
+        Activity fragmentActivity = getActivity();
+        toDoDBHelper = new TodoDBHelper(fragmentActivity);
+        tagDBHelper = new TagDBHelper(fragmentActivity);
         Cursor cursor = toDoDBHelper.fetchAllTodos();
 
         // get all todo information in list
@@ -64,6 +61,7 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
         adapter = new ExtendedSimpleCursorAdapter(
                 cursor,
                 toDoDBHelper,
+                tagDBHelper,
                 this,
                 getActivity(), R.layout.single_todo, cursor, from, to, 0
         );
@@ -73,10 +71,5 @@ public class ViewToDoFragment extends Fragment implements ListView.OnItemClickLi
         todosListView.setAdapter(adapter);
 
         return view;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // here, open the EditToDoDialogFragment to update/delete the desired todo
     }
 }

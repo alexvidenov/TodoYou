@@ -4,16 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.todoapp.database.Database;
-import com.example.todoapp.models.Todo;
+import com.example.todoapp.modules.Todo;
+
+import java.util.List;
 
 
-public class ToDoDBHelper extends ModelHelper {
+public class TodoDBHelper extends ModelHelper {
 
-    public ToDoDBHelper(Context context){ // pass the context to the database helper
+    public TodoDBHelper(Context context){ // pass the context to the database helper
         super(context);
     }
 
@@ -29,20 +30,24 @@ public class ToDoDBHelper extends ModelHelper {
     public void addTodo(Todo todo) {
         ContentValues todoContentValues = populateToDoValues(todo);
 
-        sqLiteDatabase.insert(
-                Database.TABLE_TODO_NAME,
-                null,
-                todoContentValues
+        sqLiteDatabase.beginTransaction(); // insert todo tag connections
+        long todoID = sqLiteDatabase.insert(
+            Database.TABLE_TODO_NAME,
+            null,
+            todoContentValues
         ); // insert the todo
 
-        sqLiteDatabase.beginTransaction(); // insert todo tag connections
         for(int tagID : todo.getTagIDs()) {
             ContentValues todoTagsContentValues = new ContentValues();
 
-            todoTagsContentValues.put(Database.COL_TODOTAGS_TODO_ID, todo.getId());
+            todoTagsContentValues.put(Database.COL_TODOTAGS_TODO_ID, todoID);
             todoTagsContentValues.put(Database.COL_TODOTAGS_TAG_ID, tagID);
 
-            sqLiteDatabase.insert(Database.TABLE_TODOTAGS_NAME, null, todoTagsContentValues);
+            sqLiteDatabase.insert(
+                Database.TABLE_TODOTAGS_NAME,
+                null,
+                todoTagsContentValues
+            );
         }
         sqLiteDatabase.setTransactionSuccessful();
         sqLiteDatabase.endTransaction();
@@ -52,21 +57,21 @@ public class ToDoDBHelper extends ModelHelper {
         // TODO: Remove TODO rows from TODOTAGS table of removed TODO
         String todoIdString = String.valueOf(todoId);
 
-        // sqLiteDatabase.beginTransaction();
-        sqLiteDatabase.delete(
-                Database.TABLE_TODO_NAME,
-                Database.COL_TODO_ID + "=?",
-                new String[]{todoIdString}
-        );
+        sqLiteDatabase.beginTransaction();
 
-        /* sqLiteDatabase.delete(
-                Database.TABLE_TODOTAGS_NAME,
-                Database.COL_TODOTAGS_TODO_ID + "=?",
-                new String[]{todoIdString}
-        ); */
-            // delete todo row connections of deleted todos in TODOTAGS table
-        // sqLiteDatabase.setTransactionSuccessful();
-        // sqLiteDatabase.endTransaction();
+        sqLiteDatabase.delete(
+            Database.TABLE_TODOTAGS_NAME,
+            Database.COL_TODOTAGS_TODO_ID + "=?",
+            new String[]{todoIdString}
+        ); // delete todo row connections of deleted todos in TODOTAGS table
+
+        sqLiteDatabase.delete(
+            Database.TABLE_TODO_NAME,
+            Database.COL_TODO_ID + "=?",
+            new String[]{todoIdString}
+        );
+        sqLiteDatabase.setTransactionSuccessful();
+        sqLiteDatabase.endTransaction();
     }
 
     public Cursor fetchAllTodos() {
@@ -92,7 +97,10 @@ public class ToDoDBHelper extends ModelHelper {
     }
 
     public int fetchSingleTodoId(String name){
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT _id FROM todos WHERE todo_title = ?", new String[]{ name });
+        Cursor cursor = sqLiteDatabase.rawQuery(
+                "SELECT _id FROM todos WHERE todo_title LIKE ?",
+                new String[]{ name }
+        );
         if(cursor.moveToFirst()){
             int todoId = cursor.getInt(cursor.getColumnIndex(Database.COL_TODO_ID));
             cursor.close();
@@ -104,7 +112,9 @@ public class ToDoDBHelper extends ModelHelper {
 
     public void updateToDo(Todo todo) {
         ContentValues todoContentValues = populateToDoValues(todo);
+        int toDoId = todo.getId();
 
+        sqLiteDatabase.beginTransaction(); // update todo tag connections
         sqLiteDatabase.update(
                 Database.TABLE_TODO_NAME,
                 todoContentValues,
@@ -112,15 +122,29 @@ public class ToDoDBHelper extends ModelHelper {
                 new String[]{String.valueOf(todo.getId())}
         );
 
-        sqLiteDatabase.beginTransaction(); // update todo tag connections
-        for(int tagID : todo.getTagIDs()) {
+        // TODO: Fix this banal farce of an 'Update' query
+        //  by using an actual 'Update' on rows affected (and deleting old ones/inserting new ones)
+        // delete all prior tags
+        sqLiteDatabase.delete(
+                Database.TABLE_TODOTAGS_NAME,
+                Database.COL_TODOTAGS_TODO_ID + "=?",
+                new String[]{String.valueOf(toDoId)}
+        );
+
+        // reinsert
+        for(int tagId : todo.getTagIDs()) {
             ContentValues todoTagsContentValues = new ContentValues();
 
-            todoTagsContentValues.put(Database.COL_TODOTAGS_TODO_ID, todo.getId());
-            todoTagsContentValues.put(Database.COL_TODOTAGS_TAG_ID, tagID);
+            todoTagsContentValues.put(Database.COL_TODOTAGS_TODO_ID, toDoId);
+            todoTagsContentValues.put(Database.COL_TODOTAGS_TAG_ID, tagId);
 
-            sqLiteDatabase.replace(Database.TABLE_TODOTAGS_NAME, null, todoTagsContentValues);
-                // will replace if there is a row with the same primary key (i.e. the same TODO id)
+            // reinsert tags
+            sqLiteDatabase.insert(
+                Database.TABLE_TODOTAGS_NAME,
+                null,
+                todoTagsContentValues
+            );
+                // will update rows with the same tag and todo Id (i.e. the same TODO id)
         }
         sqLiteDatabase.setTransactionSuccessful();
         sqLiteDatabase.endTransaction();

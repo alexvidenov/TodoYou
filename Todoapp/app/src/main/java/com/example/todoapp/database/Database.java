@@ -58,7 +58,7 @@ public class Database extends SQLiteOpenHelper {
 
     private static final String CREATE_TODOTAGS_TABLE = String.format(
             "CREATE TABLE IF NOT EXISTS %s (" +
-                    "%s INTEGER NOT NULL PRIMARY KEY," +
+                    "%s INTEGER NOT NULL," +
                     "%s INTEGER NOT NULL," +
                     "FOREIGN KEY(%s) REFERENCES %s(%s)," +
                     "FOREIGN KEY(%s) REFERENCES %s(%s)" +

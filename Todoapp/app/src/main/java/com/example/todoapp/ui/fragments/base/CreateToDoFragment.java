@@ -1,7 +1,8 @@
 package com.example.todoapp.ui.fragments.base;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +12,14 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.todoapp.R;
 import com.example.todoapp.database.database_helpers.TagDBHelper;
-import com.example.todoapp.database.database_helpers.ToDoDBHelper;
-import com.example.todoapp.database.database_helpers.TodoTagDBHelper;
-import com.example.todoapp.models.Todo;
+import com.example.todoapp.database.database_helpers.TodoDBHelper;
+import com.example.todoapp.modules.Tag;
+import com.example.todoapp.modules.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +27,13 @@ import java.util.List;
 public class CreateToDoFragment extends Fragment implements View.OnClickListener {
     private EditText title, content, date;
     private Button addBtn, tag;
-    private ToDoDBHelper toDoDBHelper;
-    private TagDBHelper tagDBHelper;
-    private TodoTagDBHelper todoTagDBHelper;
 
-    private String[] allTags; // all tags available
+    private TodoDBHelper toDoDBHelper;
+    private TagDBHelper tagDBHelper;
+
+    private List<Tag> allTags; // all tags available
     private boolean[] selectedTags;
-    private List<Integer> finalTags; // holds indexes of values from allTags that are checked
+    private List<Integer> finalTagIndices; // holds indexes of values from allTagTitles that are checked
 
     private List<Integer> todoTagIds; // holds tag id's that the user wants in their todo
 
@@ -44,15 +46,15 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
         date = view.findViewById(R.id.date);
 
         addBtn = view.findViewById(R.id.add_record);
-        tag = view.findViewById(R.id.enter_tag_id);
+        tag = view.findViewById(R.id.choose_tag);
 
-        toDoDBHelper = new ToDoDBHelper(getActivity()); // the context is the activity, holding the fragments.
-        tagDBHelper = new TagDBHelper(getActivity());
-        todoTagDBHelper = new TodoTagDBHelper(getActivity());
+        Activity fragmentActivity = getActivity();
+        toDoDBHelper = new TodoDBHelper(fragmentActivity); // the context is the activity, holding the fragments.
+        tagDBHelper = new TagDBHelper(fragmentActivity);
 
-        allTags = (String[]) tagDBHelper.fetchAllTags().toArray(); // fetching all tags
-        selectedTags = new boolean[allTags.length];
-        finalTags = new ArrayList<>();
+        allTags = tagDBHelper.fetchAllTags(); // fetching all tags
+        selectedTags = new boolean[allTags.size()];
+        finalTagIndices = new ArrayList<>();
         todoTagIds = new ArrayList<>();
         return view;
     }
@@ -65,6 +67,7 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
         tag.setOnClickListener(this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -77,10 +80,10 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
 
                 try {
                     todo = new Todo(
-                            todoTitle,
-                            todoContent,
-                            todoDate,
-                            todoTagIds
+                        todoTitle,
+                        todoContent,
+                        todoDate,
+                        todoTagIds
                     );
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
@@ -92,30 +95,36 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
                 getActivity().recreate(); // retrigger the state (rebuild it for the new todo)
                 break;
 
-            case R.id.enter_tag_id:
+            case R.id.choose_tag:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Choose your Tag!");
-                builder.setMultiChoiceItems(allTags, selectedTags, (dialog, which, isChecked) -> {
-                    if(isChecked){
-                        if(!finalTags.contains(which)){
-                            finalTags.add(which);
-                        } else {
-                            finalTags.remove(which);
-                        }
+                builder.setMultiChoiceItems(
+                        allTags.stream()
+                                .map(Tag::getTitle)
+                                .toArray(String[]::new),
+                        selectedTags,
+                (dialog, which, isChecked) -> {
+                    selectedTags[which] = isChecked;
+                    if(!finalTagIndices.contains(which) && isChecked) {
+                        finalTagIndices.add(which);
+                    } else {
+                        finalTagIndices.remove(which == finalTagIndices.size() ? which - 1 : which);
                     }
                 });
 
                 builder.setCancelable(false);
 
                 builder.setPositiveButton("Add", (dialog, which) -> {
-                    for(int i = 0; i < finalTags.size(); i++){
-                        String currentTagName = allTags[finalTags.get(i)];
-                        int currentTagId = tagDBHelper.fetchSingleTagId(currentTagName); // adding the tagId to the list of tagIds
-                        todoTagIds.add(currentTagId);
+                    for(int i = 0; i < finalTagIndices.size(); i++){
+                        Tag currentTag = allTags.get(finalTagIndices.get(i));
+                        todoTagIds.add(currentTag.getId());
                     }
                 });
 
                 builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+                builder.show();
+                break;
         }
     }
 }

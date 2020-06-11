@@ -9,13 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.R;
+import com.example.todoapp.modules.Tag;
 
 public class HorizontalTagAdapter extends RecyclerView.Adapter<HorizontalTagAdapter.HorizontalViewHolder> {
 
-    private String[] tagTitles;
+    private Tag[] tags;
 
-    public HorizontalTagAdapter(String[] tagTitles){
-        this.tagTitles = tagTitles;
+    public HorizontalTagAdapter(Tag[] tags){
+        this.tags = tags;
     }
 
     @NonNull
@@ -28,12 +29,12 @@ public class HorizontalTagAdapter extends RecyclerView.Adapter<HorizontalTagAdap
 
     @Override
     public void onBindViewHolder(@NonNull HorizontalViewHolder holder, int position) {
-        holder.tagTitle.setText(tagTitles[position]);
+        holder.tagTitle.setText(tags[position].getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return tagTitles.length;
+        return tags.length;
     }
 
     public class HorizontalViewHolder extends RecyclerView.ViewHolder{

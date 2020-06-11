@@ -1,4 +1,4 @@
-package com.example.todoapp.models;
+package com.example.todoapp.modules;
 
 public class Tag extends Module {
 

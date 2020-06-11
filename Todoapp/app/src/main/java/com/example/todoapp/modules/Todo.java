@@ -1,4 +1,4 @@
-package com.example.todoapp.models;
+package com.example.todoapp.modules;
 
 import androidx.annotation.NonNull;
 
@@ -34,7 +34,6 @@ public class Todo extends Module {
         this.date = date;
         this.tagIDs = tagIDs;
     }
-
 
     public String getContent() {
         return content;
