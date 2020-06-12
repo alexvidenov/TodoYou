@@ -1,124 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_edit_todo"
-    android:layout_width="wrap_content"
+    android:id="@+id/fragment_edit_todo_scroll"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/colorMainDark">
-
-    <TextView
-        android:id="@+id/edit_todo_header"
-        android:layout_width="333dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="0dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/roboto_bold"
-        android:gravity="center"
-        android:maxLines="4"
-        android:padding="30dp"
-        android:text="@string/edit_todo_header"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:visibility="visible" />
-
-    <TextView
-        android:id="@+id/edit_todo_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="0dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/roboto_medium"
-        android:gravity="center"
-        android:maxLines="4"
-        android:padding="30dp"
-        android:text="@string/edit_todo_description"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:visibility="visible" />
-
-    <EditText
-        android:id="@+id/edit_todo_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:hint="@string/enter_title"
-        android:paddingLeft="10dp"
-        android:paddingRight="0dp"
-        android:textColor="@color/white"
-        android:textColorHighlight="@color/white"
-        android:textColorHint="@color/white">
-
-    </EditText>
-
-    <EditText
-        android:id="@+id/edit_todo_content"
-        android:layout_width="match_parent"
-        android:layout_height="67dp"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:hint="@string/enter_content"
-        android:inputType="textMultiLine"
-        android:minLines="5"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:shadowColor="@color/white"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
-
-    <EditText
-        android:id="@+id/edit_todo_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:hint="@string/enter_date"
-        android:inputType="date"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColor="@color/white"
-        android:textColorHighlight="@color/white"
-        android:textColorHint="@color/white" />
-
-    <Button
-        android:id="@+id/edit_tag"
-        android:layout_width="153dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/round_action_button"
-        android:hint="@string/enter_tag"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/edit_todo_button_pair"
+        android:id="@+id/fragment_edit_todo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:layout_height="wrap_content"
+        android:background="@color/colorMainDark"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/cancel_button"
+        <TextView
+            android:id="@+id/edit_todo_header"
+            android:layout_width="333dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="0dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:maxLines="4"
+            android:padding="30dp"
+            android:text="@string/edit_todo_header"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/edit_todo_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_action_button"
-            android:text="@string/cancel" />
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="0dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:maxLines="4"
+            android:padding="30dp"
+            android:text="@string/edit_todo_description"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/edit_todo_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/enter_title"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/edit_todo_content"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/enter_content"
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:shadowColor="@color/white"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <EditText
+            android:id="@+id/edit_todo_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/enter_date"
+            android:inputType="date"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white" />
 
         <Button
-            android:id="@+id/confirm_button"
-            android:layout_width="wrap_content"
+            android:id="@+id/edit_tag"
+            android:layout_width="153dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:background="@drawable/round_action_button"
-            android:text="@string/confirm" />
+            android:hint="@string/enter_tag"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/edit_todo_button_pair"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_action_button"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/confirm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_action_button"
+                android:text="@string/confirm" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

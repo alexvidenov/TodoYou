@@ -1,86 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_edit_tag"
-    android:layout_width="wrap_content"
+    android:id="@+id/fragment_edit_tag_scroll"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorMainDark"
+    android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".ui.fragments.dialogs.EditTagDialogFragment">
 
-    <TextView
-        android:id="@+id/edit_tag_header"
-        android:layout_width="333dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="0dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/roboto_bold"
-        android:gravity="center"
-        android:maxLines="4"
-        android:padding="30dp"
-        android:text="@string/edit_tag_header"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:visibility="visible" />
-
-    <TextView
-        android:id="@+id/edit_tag_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="0dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/roboto_medium"
-        android:gravity="center"
-        android:maxLines="4"
-        android:padding="30dp"
-        android:text="@string/edit_tag_description"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:visibility="visible" />
-
-    <EditText
-        android:id="@+id/edit_tag_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:hint="@string/enter_title"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColor="@color/white"
-        android:textColorHighlight="@color/white"
-        android:textColorHint="@color/white" />
-
     <LinearLayout
-        android:id="@+id/edit_tag_button_pair"
+        android:id="@+id/fragment_edit_tag"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:layout_height="wrap_content"
+        android:background="@color/colorMainDark"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/tag_cancel_button"
+        <TextView
+            android:id="@+id/edit_tag_header"
+            android:layout_width="333dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="0dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:maxLines="4"
+            android:padding="30dp"
+            android:text="@string/edit_tag_header"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/edit_tag_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_action_button"
-            android:text="@string/cancel" />
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="0dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:maxLines="4"
+            android:padding="30dp"
+            android:text="@string/edit_tag_description"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="visible" />
 
-        <Button
-            android:id="@+id/tag_confirm_button"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/edit_tag_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_action_button"
-            android:text="@string/confirm" />
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="@string/enter_title"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white" />
 
+        <LinearLayout
+            android:id="@+id/edit_tag_button_pair"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/tag_cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_action_button"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/tag_confirm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_action_button"
+                android:text="@string/confirm" />
+
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

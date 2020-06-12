@@ -132,8 +132,7 @@ public abstract class EditModuleDialogFragment <T extends Module> extends Dialog
 
         // TODO: Ensure that module is todo
         toDoTagIds = new TodoTagDBHelper(context).fetchCorrespondingTagIds(module.getId());
-        System.out.println("initial tag ids: " + toDoTagIds);
-        toDoTagIds.forEach(id -> selectedTags[id - 1] = true);
+        toDoTagIds.forEach(id -> selectedTags[id - 1] = true); // TODO: Fix array out of bounds when deleting tags
     }
 
     // IMPORTANT:

@@ -1,60 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_create_tag"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.base.CreateTagFragment"
-    android:orientation="vertical">
+    android:id="@+id/fragment_create_tag_scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentBottom="true"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.base.CreateTagFragment">
 
-    <TextView
-        android:id="@+id/create_tag_header"
+    <LinearLayout
+        android:id="@+id/fragment_create_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="0dp"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="4"
-        android:padding="30dp"
-        android:text="@string/create_tag_header"
-        android:textSize="30sp"
-        android:visibility="visible" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/create_tag_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="0dp"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="4"
-        android:padding="30dp"
-        android:text="@string/create_tag_description"
-        android:textSize="18sp"
-        android:visibility="visible" />
+        <TextView
+            android:id="@+id/create_tag_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="0dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="4"
+            android:padding="30dp"
+            android:text="@string/create_tag_header"
+            android:textSize="30sp"
+            android:visibility="visible" />
 
-    <EditText
-        android:id="@+id/tag_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:ems="10"
-        android:hint="@string/enter_tag"></EditText>
+        <TextView
+            android:id="@+id/create_tag_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="0dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="4"
+            android:padding="30dp"
+            android:text="@string/create_tag_description"
+            android:textSize="18sp"
+            android:visibility="visible" />
 
-    <Button
-        android:id="@+id/add_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="50dp"
-        android:background="@drawable/round_action_button"
-        android:shadowColor="@color/colorMain"
-        android:shadowRadius="10"
-        android:text="@string/add_record" />
+        <EditText
+            android:id="@+id/tag_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:ems="10"
+            android:hint="@string/enter_tag" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/add_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="50dp"
+            android:background="@drawable/round_action_button"
+            android:shadowColor="@color/colorMain"
+            android:shadowRadius="10"
+            android:text="@string/add_record" />
+    </LinearLayout>
+
+</ScrollView>

@@ -40,19 +40,7 @@ public class ViewToDoFragment extends Fragment {
             R.id.todo_date
     };
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_view_todo, container, false); // inflate the fragment view to the screen
-
-        // init ListView
-        todosListView = view.findViewById(R.id.todos_listView);
-        todosListView.setEmptyView(view.findViewById(R.id.empty));
-
-        // init DB cursor
-        Activity fragmentActivity = getActivity();
-        toDoDBHelper = new TodoDBHelper(fragmentActivity);
-        tagDBHelper = new TagDBHelper(fragmentActivity);
+    private void initToDoList() {
         Cursor cursor = toDoDBHelper.fetchAllTodos();
 
         // get all todo information in list
@@ -70,7 +58,32 @@ public class ViewToDoFragment extends Fragment {
 
         // set ListView adapter and return view
         todosListView.setAdapter(adapter);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_view_todo, container, false); // inflate the fragment view to the screen
+
+        // init ListView
+        todosListView = view.findViewById(R.id.todos_listView);
+        todosListView.setEmptyView(view.findViewById(R.id.empty));
+
+        // init DB cursor
+        Activity fragmentActivity = getActivity();
+        toDoDBHelper = new TodoDBHelper(fragmentActivity);
+        tagDBHelper = new TagDBHelper(fragmentActivity);
+
+        initToDoList();
 
         return view;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            initToDoList();
+        }
     }
 }

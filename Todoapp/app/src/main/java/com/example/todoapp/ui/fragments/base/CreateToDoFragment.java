@@ -92,7 +92,6 @@ public class CreateToDoFragment extends Fragment implements View.OnClickListener
 
                 toDoDBHelper.addTodo(todo);
 
-                getActivity().recreate(); // retrigger the state (rebuild it for the new todo)
                 break;
 
             case R.id.choose_tag:

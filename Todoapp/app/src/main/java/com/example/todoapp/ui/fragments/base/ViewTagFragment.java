@@ -43,20 +43,7 @@ public class ViewTagFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_view_tag, container, false);
-
-        // init ListView
-        tagsListView = view.findViewById(R.id.tags_listView);
-        tagsListView.setEmptyView(view.findViewById(R.id.tag_empty));
-
-        // init DB cursor
-        Activity fragmentActivity = getActivity();
-        tagDBHelper = new TagDBHelper(fragmentActivity);
-        todoDBHelper = new TodoDBHelper(fragmentActivity);
+    private void initTagList() {
         Cursor cursor = tagDBHelper.fetchAllTagsReturnsCursor();
 
         adapter = new ExtendedSimpleCursorAdapter(
@@ -76,8 +63,34 @@ public class ViewTagFragment extends Fragment {
         // get all tag information in list
 
         tagsListView.setAdapter(adapter);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_view_tag, container, false);
+
+        // init ListView
+        tagsListView = view.findViewById(R.id.tags_listView);
+        tagsListView.setEmptyView(view.findViewById(R.id.tag_empty));
+
+        // init DB cursor
+        Activity fragmentActivity = getActivity();
+        tagDBHelper = new TagDBHelper(fragmentActivity);
+        todoDBHelper = new TodoDBHelper(fragmentActivity);
+
+        initTagList();
 
         return view;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            initTagList();
+        }
     }
 
 }

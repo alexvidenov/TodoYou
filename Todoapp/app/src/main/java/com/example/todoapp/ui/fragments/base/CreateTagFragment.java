@@ -56,7 +56,6 @@ public class CreateTagFragment extends Fragment implements View.OnClickListener 
 
             if(!tag.equals("")) {
                 tagDBHelper.addTag(new Tag(tag));
-                getActivity().recreate(); // TODO: Replace w/ something else (use threads and wait/notify maybe)
             }
         }
     }
