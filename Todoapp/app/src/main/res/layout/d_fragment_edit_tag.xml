@@ -5,6 +5,7 @@
     android:id="@+id/fragment_edit_tag_scroll"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@color/pure_black"
     android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".ui.fragments.dialogs.EditTagDialogFragment">
@@ -13,7 +14,7 @@
         android:id="@+id/fragment_edit_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorMainDark"
+        android:background="@drawable/round_dialog_fragment"
         android:orientation="vertical">
 
         <TextView
@@ -55,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:backgroundTint="@color/pure_white"
             android:ems="10"
             android:hint="@string/enter_title"
             android:paddingLeft="10dp"
@@ -77,7 +79,9 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_action_button"
-                android:text="@string/cancel" />
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/tag_confirm_button"
@@ -86,7 +90,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_action_button"
-                android:text="@string/confirm" />
+                android:text="@string/confirm"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>

@@ -15,6 +15,7 @@
         android:id="@+id/fragment_create_todo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
         android:orientation="vertical">
 
         <TextView
@@ -29,6 +30,7 @@
             android:maxLines="4"
             android:padding="30dp"
             android:text="@string/create_todo_header"
+            android:textColor="@color/white"
             android:textSize="30sp"
             android:visibility="visible" />
 
@@ -44,6 +46,7 @@
             android:maxLines="4"
             android:padding="30dp"
             android:text="@string/create_todo_description"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:visibility="visible" />
 
@@ -52,29 +55,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:backgroundTint="@color/pure_white"
             android:ems="10"
-            android:hint="@string/enter_title">
+            android:hint="@string/enter_title"
+            android:maxLines="3"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white">
 
         </EditText>
 
         <EditText
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="67dp"
+            android:layout_height="50dp"
             android:layout_margin="10dp"
+            android:backgroundTint="@color/pure_white"
             android:ems="10"
             android:hint="@string/enter_content"
             android:inputType="textMultiLine"
-            android:minLines="5" />
+            android:maxLines="5"
+            android:minLines="5"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/pure_white"
             android:ems="10"
             android:hint="@string/enter_date"
-            android:inputType="date" />
+            android:inputType="date"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -92,6 +110,8 @@
                 android:background="@drawable/round_action_button"
                 android:hint="@string/enter_tag"
                 android:paddingBottom="15dp"
+                android:text="@string/enter_tag"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -102,7 +122,9 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/round_action_button"
-                android:text="@string/add_record" />
+                android:text="@string/add_record"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 

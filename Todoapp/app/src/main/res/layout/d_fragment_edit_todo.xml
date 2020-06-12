@@ -4,13 +4,14 @@
     android:id="@+id/fragment_edit_todo_scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/pure_black"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/fragment_edit_todo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorMainDark"
+        android:background="@drawable/round_dialog_fragment"
         android:orientation="vertical">
 
         <TextView
@@ -52,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:backgroundTint="@color/pure_white"
             android:ems="10"
             android:hint="@string/enter_title"
             android:paddingLeft="10dp"
@@ -67,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="67dp"
             android:layout_margin="10dp"
+            android:backgroundTint="@color/pure_white"
             android:ems="10"
             android:hint="@string/enter_content"
             android:inputType="textMultiLine"
@@ -82,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:backgroundTint="@color/pure_white"
             android:ems="10"
             android:hint="@string/enter_date"
             android:inputType="date"
@@ -98,7 +102,9 @@
             android:layout_gravity="center"
             android:background="@drawable/round_action_button"
             android:hint="@string/enter_tag"
-            android:textSize="20sp"
+            android:text="@string/enter_tag"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -115,7 +121,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_action_button"
-                android:text="@string/cancel" />
+                android:text="@string/cancel"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/confirm_button"
@@ -124,7 +131,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_action_button"
-                android:text="@string/confirm" />
+                android:text="@string/confirm"
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 
